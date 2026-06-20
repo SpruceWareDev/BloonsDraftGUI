@@ -5,6 +5,7 @@ import dev.spruce.draftgui.game.Player;
 import dev.spruce.draftgui.game.PlayerDraft;
 import dev.spruce.draftgui.ui.impl.DraftList;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -143,5 +144,28 @@ public class FileManager {
             }
         }
         return null;
+    }
+
+    public void updatePlayerWins() {
+        for (Player player : this.players) {
+            int wins = 0;
+            for (Draft draft : loadDraftFiles()) {
+                int highestRound = 0;
+                PlayerDraft winningDraft = null;
+                for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+                    if (playerDraft.getPlayer().getName().equals(player.getName())) {
+                        if (playerDraft.getRound() > highestRound) {
+                            highestRound = playerDraft.getRound();
+                            winningDraft = playerDraft;
+                        }
+                    }
+                }
+
+                if (winningDraft != null && winningDraft.getPlayer().getName().equals(player.getName())) {
+                    wins++;
+                }
+            }
+            player.setWins(wins);
+        }
     }
 }

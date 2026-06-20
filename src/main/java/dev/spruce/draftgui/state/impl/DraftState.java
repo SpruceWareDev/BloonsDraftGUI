@@ -24,33 +24,39 @@ public class DraftState extends State {
     private UIManager uiManager;
     private Draft draft;
 
+    public DraftState(String map, List<String> playerNames) {
+        List<Player> players = playerNames.stream()
+                .map(name -> Application.getFileManager().getPlayerByName(name))
+                .toList();
+        this.draft = new Draft(DateUtils.getDate(), map, players);
+    }
+
     @Override
     public void initialize() {
-        this.draft = new Draft(DateUtils.getDate(), "Cracked", Application.getFileManager().getPlayers());
         this.uiManager = new UIManager();
 
+        int height = this.draft.getPlayerDrafts().get(0).getTowers().size() * 24 + 6;
         int i = 0;
         for (PlayerDraft playerDraft : this.draft.getPlayerDrafts()) {
             final int width = 225;
-            this.uiManager.addComponent(new DraftList(6 + ((width + 2) * i), 46, width, 400, playerDraft));
+
+            float startX = (Raylib.GetRenderWidth() / 2f) - draft.getNumPlayers() * (width + 2) / 2f;
+            float x = startX + ((width + 2) * i);
+            float y = 46;
+
+            this.uiManager.addComponent(new DraftList(x, y, width, height, playerDraft));
             i++;
         }
 
         this.uiManager.addComponent(new Button("Save Draft", 6, 500, 250, 40, () -> {
+            updatePlayerRounds();
             int highestRound = 0;
             int highestIndex = 0;
             for (PlayerDraft playerDraft : this.draft.getPlayerDrafts()) {
-                String playerRoundStr = JOptionPane.showInputDialog(playerDraft.getPlayer().getName() + "'s round: ");
-                if (playerRoundStr != null && !playerRoundStr.trim().isEmpty()) {
-                    try {
-                        int playerRound = Integer.parseInt(playerRoundStr);
-                        if (playerRound > highestRound) {
-                            highestRound = playerRound;
-                            highestIndex = this.draft.getPlayerDrafts().indexOf(playerDraft);
-                        }
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Invalid round number for " + playerDraft.getPlayer().getName());
-                    }
+                int playerRound = playerDraft.getRound();
+                if (playerRound > highestRound) {
+                    highestRound = playerRound;
+                    highestIndex = this.draft.getPlayerDrafts().indexOf(playerDraft);
                 }
             }
             Player winner = Application.getFileManager().getPlayerByName(this.draft.getPlayerDrafts().get(highestIndex).getPlayer().getName());
@@ -59,14 +65,22 @@ public class DraftState extends State {
             Application.getStateManager().setState(new HomeState());
         }));
 
-        this.uiManager.addComponent(new Button("Re-roll Towers", 6, 560, 250, 40, () -> {
+        this.uiManager.addComponent(new Button("Re-roll Towers", 6, 546, 250, 40, () -> {
             this.draft.regenerateDraft();
             for (UIComponent component : this.uiManager.getComponents()) {
-                if (component instanceof DraftList) {
-                    ((DraftList) component).setPlayerDraft(this.draft.getPlayerDrafts().get(this.uiManager.getComponents().indexOf(component)));
+                if (component instanceof DraftList draftList) {
+                    draftList.setPlayerDraft(this.draft.getPlayerDrafts().get(this.uiManager.getComponents().indexOf(component)));
                 }
              }
         }));
+    }
+
+    private void updatePlayerRounds() {
+        for (UIComponent component : this.uiManager.getComponents()) {
+            if (component instanceof DraftList draftList) {
+                draftList.updateRound();
+            }
+        }
     }
 
     @Override

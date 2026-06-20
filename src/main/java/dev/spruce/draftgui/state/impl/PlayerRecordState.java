@@ -20,6 +20,7 @@ public class PlayerRecordState extends State {
 
     @Override
     public void initialize() {
+        Application.getFileManager().updatePlayerWins();
         this.uiManager = new UIManager();
         this.uiManager.addComponent(new Button("Back to Home", 6, 6, 200, 40,
                 () -> Application.getStateManager().setState(new HomeState()))

@@ -25,6 +25,10 @@ public class Player implements ISaveable {
         return wins;
     }
 
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
     @Override
     public String save() {
         return this.name + FileManager.PLAYER_DATA_SEPARATOR + this.wins;

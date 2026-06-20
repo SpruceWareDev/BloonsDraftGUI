@@ -1,5 +1,6 @@
 package dev.spruce.draftgui.ui;
 
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UIManager {
@@ -32,5 +33,11 @@ public class UIManager {
 
     public CopyOnWriteArrayList<UIComponent> getComponents() {
         return components;
+    }
+
+    public List<UIComponent> getComponentsByClass(Class<? extends UIComponent> clazz) {
+        return components.stream()
+                .filter(clazz::isInstance)
+                .toList();
     }
 }

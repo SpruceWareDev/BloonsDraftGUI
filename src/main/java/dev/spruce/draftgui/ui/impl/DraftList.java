@@ -13,10 +13,12 @@ import static com.raylib.Colors.*;
 public class DraftList extends UIComponent {
 
     private PlayerDraft playerDraft;
+    private TextBox roundTextBox;
 
     public DraftList(float x, float y, float width, float height, PlayerDraft playerDraft) {
         super(x, y, width, height);
         this.playerDraft = playerDraft;
+        this.roundTextBox = new TextBox(x + width - 50, y + height - 30, 40, 20);
     }
 
     @Override
@@ -33,14 +35,20 @@ public class DraftList extends UIComponent {
             Raylib.DrawText(tower.getName(), (int) (getX() + 6), (int) (getY() + 26 + (i * 20)), 20, BLACK);
             i++;
         }
+
+        this.roundTextBox.render();
     }
 
     @Override
     public void update() {
-
+        this.roundTextBox.update();
     }
 
     public void setPlayerDraft(PlayerDraft playerDraft) {
         this.playerDraft = playerDraft;
+    }
+
+    public void updateRound() {
+        this.playerDraft.setRound(this.roundTextBox.getInteger());
     }
 }

@@ -17,12 +17,16 @@ public class HomeState extends State {
         this.uiManager = new UIManager();
 
         this.uiManager.addComponent(new Button("Start Draft",
-                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 1f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
-            Application.getStateManager().setState(new DraftState());
+                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 40f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
+            Application.getStateManager().setState(new DraftSetupState());
         }));
         this.uiManager.addComponent(new Button("Players",
-                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 150f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
+                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 100f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new PlayerRecordState());
+        }));
+        this.uiManager.addComponent(new Button("Previous Drafts",
+                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 160f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
+            Application.getStateManager().setState(new PreviousDraftsState());
         }));
     }
 

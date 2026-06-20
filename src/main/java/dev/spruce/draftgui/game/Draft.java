@@ -25,7 +25,10 @@ public class Draft implements ISaveable {
         this.date = date;
         this.map = map;
         this.players = players;
-        this.playerDrafts = generateDrafts(players);
+        this.playerDrafts = new ArrayList<>();
+        if (players.size() > 1) {
+            this.playerDrafts = generateDrafts(players);
+        }
         this.numPlayers = playerDrafts.size();
     }
 
@@ -47,7 +50,7 @@ public class Draft implements ISaveable {
                     usedTowers.add(randomTower);
                 }
             }
-            drafts.add(new PlayerDraft(player, playerTowers));
+            drafts.add(new PlayerDraft(player, playerTowers, 0));
         }
 
         return drafts;
@@ -78,11 +81,12 @@ public class Draft implements ISaveable {
         for (PlayerDraft playerDraft : this.playerDrafts) {
             Player player = playerDraft.getPlayer();
             stringBuilder.append(player.getName()).append(FileManager.PLAYER_DATA_SEPARATOR);
+            stringBuilder.append(playerDraft.getRound()).append(FileManager.PLAYER_DATA_SEPARATOR);
             for (Tower tower : playerDraft.getTowers()) {
                 stringBuilder.append(tower.getName()).append(FileManager.PLAYER_DATA_SEPARATOR);
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-            stringBuilder.append(FileManager.DRAFT_FILE_EXTENSION);
+            stringBuilder.append(FileManager.DRAFT_DATA_SEPARATOR);
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
@@ -98,13 +102,15 @@ public class Draft implements ISaveable {
         for (int i = PLAYER_DATA_INDEX; i < elements.length; i++) {
             String[] playerElements = elements[i].split(FileManager.PLAYER_DATA_SEPARATOR);
             String playerName = playerElements[0];
+            String roundString = playerElements[1];
             List<Tower> towers = new ArrayList<>();
-            for (int j = 1; j < playerElements.length; j++) {
+            for (int j = 2; j < playerElements.length; j++) {
                 Tower tower = Towers.getTowerByName(playerElements[j]);
                 towers.add(tower);
             }
+            int playerRound = Integer.parseInt(roundString);
             Player player = Application.getFileManager().getPlayerByName(playerName);
-            this.playerDrafts.add(new PlayerDraft(player, towers));
+            this.playerDrafts.add(new PlayerDraft(player, towers, playerRound));
         }
     }
 
