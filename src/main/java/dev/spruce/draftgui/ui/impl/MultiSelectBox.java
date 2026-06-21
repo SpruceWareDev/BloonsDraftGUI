@@ -28,7 +28,7 @@ public class MultiSelectBox extends UIComponent {
             String option = options.get(i);
             float optionY = getY() + i * optionHeight;
 
-            Rectangle optionRect = new Rectangle(getX(), optionY, getWidth(), optionHeight);
+            Rectangle optionRect = new Rectangle(getX() + 6, optionY + 6, getWidth() - 12, optionHeight - 12);
             Raylib.DrawRectangleRounded(optionRect.toRaylibRectangle(), 0.4f, 10, selectedOptions[i] ? Colors.DARKGREEN : Colors.GRAY);
             Raylib.DrawText(option, (int) getX() + 10, (int) optionY + 10, 20, Colors.WHITE);
         }

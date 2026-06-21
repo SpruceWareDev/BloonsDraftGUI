@@ -9,6 +9,7 @@ import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.impl.MultiSelectBox;
+import dev.spruce.draftgui.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class DraftSetupState extends State {
         this.uiManager.addComponent(playerSelect);
 
 
-        this.uiManager.addComponent(new Button("Start Draft", 10, 250, 100, 30, () -> {
+        this.uiManager.addComponent(new Button("Start Draft", 10, 250, 160, UIUtils.BUTTON_HEIGHT, () -> {
             boolean[] selectedDifficulties = difficultySelect.getSelectedOptions();
             List<String> maps = new ArrayList<>();
             if (selectedDifficulties[0]) maps.addAll(Maps.BEGINNER_MAPS);

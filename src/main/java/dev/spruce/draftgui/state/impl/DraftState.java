@@ -22,7 +22,7 @@ import static com.raylib.Colors.BLACK;
 public class DraftState extends State {
 
     private UIManager uiManager;
-    private Draft draft;
+    private final Draft draft;
 
     public DraftState(String map, List<String> playerNames) {
         List<Player> players = playerNames.stream()
