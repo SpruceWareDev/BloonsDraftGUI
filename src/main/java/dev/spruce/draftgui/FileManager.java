@@ -147,25 +147,51 @@ public class FileManager {
     }
 
     public void updatePlayerWins() {
-        for (Player player : this.players) {
-            int wins = 0;
-            for (Draft draft : loadDraftFiles()) {
-                int highestRound = 0;
-                PlayerDraft winningDraft = null;
-                for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
-                    if (playerDraft.getPlayer().getName().equals(player.getName())) {
-                        if (playerDraft.getRound() > highestRound) {
-                            highestRound = playerDraft.getRound();
-                            winningDraft = playerDraft;
-                        }
-                    }
-                }
+        this.players.forEach(player -> player.setWins(0));
+        for (Draft draft : loadDraftFiles()) {
+            List<PlayerDraft> winners = calculateWinners(draft);
 
-                if (winningDraft != null && winningDraft.getPlayer().getName().equals(player.getName())) {
-                    wins++;
+            for (PlayerDraft winner : winners) {
+                Player player = winner.getPlayer();
+                player.incrementWins();
+            }
+        }
+    }
+
+    private List<PlayerDraft> calculateWinners(Draft draft) {
+        List<PlayerDraft> winners = new ArrayList<>();
+        int highestRound = 0;
+
+        for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+            if (playerDraft.getRound() > highestRound) {
+                highestRound = playerDraft.getRound();
+                winners.clear();
+                winners.add(playerDraft);
+            } else if (playerDraft.getRound() == highestRound) {
+                winners.add(playerDraft);
+            }
+        }
+
+        return winners;
+    }
+
+    public float getPlayerWinPercentage(Player player) {
+        int totalDrafts = 0;
+        int wins = player.getWins();
+
+        for (Draft draft : loadDraftFiles()) {
+            for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+                if (playerDraft.getPlayer().equals(player)) {
+                    totalDrafts++;
+                    break;
                 }
             }
-            player.setWins(wins);
         }
+
+        if (totalDrafts == 0) {
+            return 0.0f;
+        }
+
+        return (float) wins / totalDrafts * 100;
     }
 }

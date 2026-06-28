@@ -24,7 +24,7 @@ public class DraftSetupState extends State {
     @Override
     public void initialize() {
         this.uiManager = new UIManager();
-        this.difficultySelect = new MultiSelectBox(6, 40, 200, 200,
+        this.difficultySelect = new MultiSelectBox(6, 40, 200, 224, "Difficulty Select",
                 Arrays.asList("Beginner", "Intermediate", "Advanced", "Expert"));
         this.uiManager.addComponent(difficultySelect);
 
@@ -32,11 +32,12 @@ public class DraftSetupState extends State {
         for (Player player : Application.getFileManager().getPlayers()) {
             playerNames.add(player.getName());
         }
-        this.playerSelect = new MultiSelectBox(220, 40, 200, 200, playerNames);
+        this.playerSelect = new MultiSelectBox(220, 40, 200, 224, "Player Select", playerNames);
         this.uiManager.addComponent(playerSelect);
 
 
-        this.uiManager.addComponent(new Button("Start Draft", 10, 250, 160, UIUtils.BUTTON_HEIGHT, () -> {
+        this.uiManager.addComponent(new Button("Start Draft", Raylib.GetRenderWidth() - 166, Raylib.GetRenderHeight() - UIUtils.BUTTON_HEIGHT
+                 - 6, 160, UIUtils.BUTTON_HEIGHT, () -> {
             boolean[] selectedDifficulties = difficultySelect.getSelectedOptions();
             List<String> maps = new ArrayList<>();
             if (selectedDifficulties[0]) maps.addAll(Maps.BEGINNER_MAPS);

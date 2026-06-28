@@ -9,11 +9,13 @@ import java.util.List;
 
 public class MultiSelectBox extends UIComponent {
 
+    private final String title;
     private final List<String> options;
     private boolean[] selectedOptions;
 
-    public MultiSelectBox(float x, float y, float width, float height, List<String> options) {
+    public MultiSelectBox(float x, float y, float width, float height, String title, List<String> options) {
         super(x, y, width, height);
+        this.title = title;
         this.options = options;
         this.selectedOptions = new boolean[options.size()];
     }
@@ -22,22 +24,31 @@ public class MultiSelectBox extends UIComponent {
     public void render() {
         Rectangle rect = new Rectangle(getX(), getY(), getWidth(), getHeight());
         Raylib.DrawRectangleRounded(rect.toRaylibRectangle(), 0.1f, 10, Colors.BLACK);
+        Raylib.DrawText(title, (int) getX() + 10, (int) getY() + 10, 20, Colors.WHITE);
 
-        int optionHeight = (int) (getHeight() / options.size());
+        int optionHeight = (int) ((getHeight() - 36) / options.size());
         for (int i = 0; i < options.size(); i++) {
             String option = options.get(i);
-            float optionY = getY() + i * optionHeight;
+            float optionY = getY() + i * optionHeight + 36;
 
             Rectangle optionRect = new Rectangle(getX() + 6, optionY + 6, getWidth() - 12, optionHeight - 12);
-            Raylib.DrawRectangleRounded(optionRect.toRaylibRectangle(), 0.4f, 10, selectedOptions[i] ? Colors.DARKGREEN : Colors.GRAY);
-            Raylib.DrawText(option, (int) getX() + 10, (int) optionY + 10, 20, Colors.WHITE);
+            Raylib.DrawRectangleRounded(optionRect.toRaylibRectangle(), 0.4f, 10, Colors.GRAY);
+
+            optionRect.setWidth(16);
+            optionRect.setHeight(16);
+            optionRect.setY(optionY + (optionHeight - optionRect.getHeight()) / 2);
+            optionRect.setX(getX() + getWidth() - optionRect.getWidth() * 2);
+            Raylib.DrawRectangleRounded(optionRect.toRaylibRectangle(), 1f, 10, selectedOptions[i] ? Colors.GREEN : Colors.DARKGRAY);
+
+            Raylib.DrawText(option, (int) getX() + 10, (int) optionY + 14, 20, Colors.BLACK);
         }
     }
 
     @Override
     public void update() {
+        int optionHeight = (int) ((getHeight() - 36) / options.size());
         for (int i = 0; i < options.size(); i++) {
-            float optionY = getY() + i * (getHeight() / options.size());
+            float optionY = getY() + i * optionHeight + 36;
             Rectangle optionRect = new Rectangle(getX(), optionY, getWidth(), getHeight() / options.size());
 
             if (Raylib.IsMouseButtonPressed(0) && optionRect.contains(Raylib.GetMousePosition().x(), Raylib.GetMousePosition().y())) {

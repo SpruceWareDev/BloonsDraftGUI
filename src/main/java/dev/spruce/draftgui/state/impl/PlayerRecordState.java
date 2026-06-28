@@ -10,6 +10,7 @@ import dev.spruce.draftgui.utils.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.desktop.AppForegroundListener;
 
 import static com.raylib.Colors.BLACK;
 import static com.raylib.Colors.GRAY;
@@ -59,8 +60,8 @@ public class PlayerRecordState extends State {
         Raylib.DrawText(player.getName(), 12,
                 6 + (UIUtils.BUTTON_HEIGHT + 2) * index + 6 + (UIUtils.BUTTON_HEIGHT * 2) + 10, 20, BLACK);
 
-        String winsText = "Wins: " + player.getWins();
-        Raylib.DrawText(winsText, Raylib.GetScreenWidth() - Raylib.GuiGetTextWidth(winsText) - 52,
+        String winsText = "Wins: " + player.getWins() + " " + Application.getFileManager().getPlayerWinPercentage(player) + "%";
+        Raylib.DrawText(winsText, Raylib.GetScreenWidth() - Raylib.GuiGetTextWidth(winsText) * 2 - 6,
                 6 + (UIUtils.BUTTON_HEIGHT + 2) * index + 6 + (UIUtils.BUTTON_HEIGHT * 2) + 10, 20, BLACK);
     }
 
