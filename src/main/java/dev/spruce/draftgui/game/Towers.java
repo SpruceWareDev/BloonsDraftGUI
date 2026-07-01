@@ -7,27 +7,27 @@ public class Towers {
 
     public static final List<Tower> TOWERS = new ArrayList<>();
 
-    public static final Tower DARTLING_GUNNER = add(new Tower("Dartling Gunner"));
-    public static final Tower GLUE = add(new Tower("Glue"));
-    public static final Tower DART = add(new Tower("Dart"));
-    public static final Tower BEAST_HANDLER = add(new Tower("Beasty Boy"));
-    public static final Tower MORTAR = add(new Tower("Mortar"));
-    public static final Tower DRUID = add(new Tower("Druid"));
-    public static final Tower TACK = add(new Tower("Tack"));
-    public static final Tower HELI = add(new Tower("Heli"));
-    public static final Tower SPIKE = add(new Tower("Spike"));
-    public static final Tower NINJA = add(new Tower("Ninja"));
-    public static final Tower BOMB = add(new Tower("Bomb"));
-    public static final Tower SNIPER = add(new Tower("Sniper"));
-    public static final Tower DESPERADO = add(new Tower("Desperado"));
-    public static final Tower ACE = add(new Tower("Ace"));
-    public static final Tower ALCH = add(new Tower("Alch"));
-    public static final Tower ENGINEER = add(new Tower("Engineer"));
-    public static final Tower MERMONKEY = add(new Tower("Mermonkey"));
-    public static final Tower BOOMERANG = add(new Tower("Boomerang"));
-    public static final Tower SUPER = add(new Tower("Super"));
-    public static final Tower ICE = add(new Tower("Ice"));
-    public static final Tower WIZARD = add(new Tower("Wizard"));
+    public static final Tower DARTLING_GUNNER = add(new Tower("Dartling Gunner", TowerType.MILITARY));
+    public static final Tower GLUE = add(new Tower("Glue", TowerType.PRIMARY));
+    public static final Tower DART = add(new Tower("Dart", TowerType.PRIMARY));
+    public static final Tower BEAST_HANDLER = add(new Tower("Beasty Boy", TowerType.SUPPORT));
+    public static final Tower MORTAR = add(new Tower("Mortar", TowerType.MILITARY));
+    public static final Tower DRUID = add(new Tower("Druid", TowerType.MAGIC));
+    public static final Tower TACK = add(new Tower("Tack", TowerType.PRIMARY));
+    public static final Tower HELI = add(new Tower("Heli", TowerType.MILITARY));
+    public static final Tower SPIKE = add(new Tower("Spike", TowerType.SUPPORT));
+    public static final Tower NINJA = add(new Tower("Ninja", TowerType.MAGIC));
+    public static final Tower BOMB = add(new Tower("Bomb", TowerType.PRIMARY));
+    public static final Tower SNIPER = add(new Tower("Sniper", TowerType.MILITARY));
+    public static final Tower DESPERADO = add(new Tower("Desperado", TowerType.PRIMARY));
+    public static final Tower ACE = add(new Tower("Ace", TowerType.MILITARY));
+    public static final Tower ALCH = add(new Tower("Alch", TowerType.MAGIC));
+    public static final Tower ENGINEER = add(new Tower("Engineer", TowerType.SUPPORT));
+    public static final Tower MERMONKEY = add(new Tower("Mermonkey", TowerType.SUPPORT));
+    public static final Tower BOOMERANG = add(new Tower("Boomerang", TowerType.PRIMARY));
+    public static final Tower SUPER = add(new Tower("Super", TowerType.MAGIC));
+    public static final Tower ICE = add(new Tower("Ice", TowerType.PRIMARY));
+    public static final Tower WIZARD = add(new Tower("Wizard", TowerType.MAGIC));
 
     private static Tower add(Tower tower) {
         TOWERS.add(tower);

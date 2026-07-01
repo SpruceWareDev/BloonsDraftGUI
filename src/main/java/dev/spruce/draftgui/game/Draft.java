@@ -56,6 +56,16 @@ public class Draft implements ISaveable {
         return drafts;
     }
 
+    public List<Tower> getLeftOverTowers() {
+        List<Tower> usedTowers = new ArrayList<>();
+        for (PlayerDraft playerDraft : playerDrafts) {
+            usedTowers.addAll(playerDraft.getTowers());
+        }
+        List<Tower> leftOverTowers = new ArrayList<>(Towers.TOWERS);
+        leftOverTowers.removeAll(usedTowers);
+        return leftOverTowers;
+    }
+
     public String getDate() {
         return date;
     }

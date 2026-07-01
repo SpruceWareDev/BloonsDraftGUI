@@ -5,12 +5,14 @@ import dev.spruce.draftgui.Application;
 import dev.spruce.draftgui.game.Draft;
 import dev.spruce.draftgui.game.Player;
 import dev.spruce.draftgui.game.PlayerDraft;
+import dev.spruce.draftgui.game.Tower;
 import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.impl.DraftList;
 import dev.spruce.draftgui.utils.DateUtils;
+import dev.spruce.draftgui.utils.RenderUtils;
 
 import javax.swing.*;
 
@@ -92,6 +94,13 @@ public class DraftState extends State {
     public void render() {
         Raylib.DrawText("Map: " + draft.getMap(), 6, 6, 20, BLACK);
         Raylib.DrawText("Date: " + draft.getDate(), 6, 26, 20, BLACK);
+
+        RenderUtils.DrawTextAShadow("Leftover Towers:", 6, 46, 20, BLACK);
+        for (Tower tower : this.draft.getLeftOverTowers()) {
+            RenderUtils.DrawTextAShadow(tower.getName(), 6,
+                    66 + (this.draft.getLeftOverTowers().indexOf(tower) * 24), 20, tower.getType().getColor());
+        }
+
         this.uiManager.render();
     }
 

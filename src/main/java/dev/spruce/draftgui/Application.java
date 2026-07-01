@@ -11,7 +11,7 @@ public class Application {
     private static FileManager fileManager;
 
     private void init() {
-        Raylib.InitWindow(800, 600, "DraftGUI");
+        Raylib.InitWindow(1200, 600, "DraftGUI");
         Raylib.SetTargetFPS(60);
         stateManager = new StateManager();
         fileManager = new FileManager();

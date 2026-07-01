@@ -40,6 +40,8 @@ public class TextBox extends UIComponent {
             char key = (char) Raylib.GetCharPressed();
             if (Character.isLetterOrDigit(key) || Character.isWhitespace(key)) {
                 text += (char) key;
+            } else if (Raylib.GetKeyPressed() == Raylib.KEY_BACKSPACE && !text.isEmpty()) {
+                text = text.substring(0, text.length() - 1);
             }
         }
     }

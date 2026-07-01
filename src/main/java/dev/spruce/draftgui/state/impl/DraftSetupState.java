@@ -32,7 +32,7 @@ public class DraftSetupState extends State {
         for (Player player : Application.getFileManager().getPlayers()) {
             playerNames.add(player.getName());
         }
-        this.playerSelect = new MultiSelectBox(220, 40, 200, 224, "Player Select", playerNames);
+        this.playerSelect = new MultiSelectBox(220, 40, 200, 324, "Player Select", playerNames);
         this.uiManager.addComponent(playerSelect);
 
 

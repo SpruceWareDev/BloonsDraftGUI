@@ -21,6 +21,10 @@ public class Rectangle {
         return new Raylib.Rectangle().x(x).y(y).width(width).height(height);
     }
 
+    public static Rectangle fromXYWH(float x, float y, float width, float height) {
+        return new Rectangle(x, y, width, height);
+    }
+
     public float getX() {
         return x;
     }

@@ -6,14 +6,14 @@ import dev.spruce.draftgui.game.Player;
 import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
+import dev.spruce.draftgui.utils.RenderUtils;
 import dev.spruce.draftgui.utils.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.desktop.AppForegroundListener;
 
-import static com.raylib.Colors.BLACK;
-import static com.raylib.Colors.GRAY;
+import static com.raylib.Colors.*;
 
 public class PlayerRecordState extends State {
 
@@ -54,15 +54,23 @@ public class PlayerRecordState extends State {
 
     private void renderPlayerRecord(Player player) {
         int index = Application.getFileManager().getPlayers().indexOf(player);
-        Raylib.DrawRectangle(6, 6 + (UIUtils.BUTTON_HEIGHT + 2) * index + 6 + (UIUtils.BUTTON_HEIGHT * 2),
-                Raylib.GetScreenWidth() - 12, UIUtils.BUTTON_HEIGHT, GRAY);
+        int yOffset = 6 + (UIUtils.BUTTON_HEIGHT + 2) * index + 6 + (UIUtils.BUTTON_HEIGHT * 2);
+        int x = 6;
+        int y = yOffset;
 
-        Raylib.DrawText(player.getName(), 12,
-                6 + (UIUtils.BUTTON_HEIGHT + 2) * index + 6 + (UIUtils.BUTTON_HEIGHT * 2) + 10, 20, BLACK);
+        Raylib.DrawRectangle(x, y, Raylib.GetScreenWidth() - 12, UIUtils.BUTTON_HEIGHT, GRAY);
 
-        String winsText = "Wins: " + player.getWins() + " " + Application.getFileManager().getPlayerWinPercentage(player) + "%";
-        Raylib.DrawText(winsText, Raylib.GetScreenWidth() - Raylib.GuiGetTextWidth(winsText) * 2 - 6,
-                6 + (UIUtils.BUTTON_HEIGHT + 2) * index + 6 + (UIUtils.BUTTON_HEIGHT * 2) + 10, 20, BLACK);
+        RenderUtils.DrawTextAShadow(player.getName(), 12, y, 20, 3,  WHITE);
+
+        renderSection(x + 200, y, 100, UIUtils.BUTTON_HEIGHT, "Wins", String.valueOf(player.getWins()));
+        renderSection(x + 306, y, 300, UIUtils.BUTTON_HEIGHT, "Win Percentage",
+                String.valueOf(Application.getFileManager().getPlayerWinPercentage(player)));
+    }
+
+    private void renderSection(int x, int y, int width, int height, String title, String value) {
+        Raylib.DrawRectangle(x, y, width, height, DARKGRAY);
+        RenderUtils.DrawTextAShadow(title, x + 6, y + 6, 20, WHITE);
+        RenderUtils.DrawTextAShadow(value, x + width - 6 - Raylib.MeasureText(value, 20), y + 6, 20, GREEN);
     }
 
     @Override
