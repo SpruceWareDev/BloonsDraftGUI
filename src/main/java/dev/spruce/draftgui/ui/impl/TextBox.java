@@ -3,6 +3,7 @@ package dev.spruce.draftgui.ui.impl;
 import com.raylib.Colors;
 import com.raylib.Raylib;
 import dev.spruce.draftgui.ui.UIComponent;
+import dev.spruce.draftgui.utils.Colours;
 
 import java.awt.*;
 
@@ -20,7 +21,7 @@ public class TextBox extends UIComponent {
     public void render() {
         Raylib.DrawRectangle((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight(), Colors.BLACK);
         if (isFocused) {
-            Raylib.DrawRectangleLines((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight(), Colors.YELLOW);
+            Raylib.DrawRectangleLines((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight(), Colours.LIGHT);
         } else {
             Raylib.DrawRectangleLines((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight(), Colors.GRAY);
         }

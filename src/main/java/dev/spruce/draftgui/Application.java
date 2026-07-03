@@ -3,6 +3,8 @@ package dev.spruce.draftgui;
 import com.raylib.Raylib;
 import dev.spruce.draftgui.state.StateManager;
 import dev.spruce.draftgui.state.impl.HomeState;
+import dev.spruce.draftgui.utils.Colours;
+
 import static com.raylib.Colors.RAYWHITE;
 
 public class Application {
@@ -24,7 +26,7 @@ public class Application {
         while (!Raylib.WindowShouldClose()) {
             stateManager.update();
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(RAYWHITE);
+            Raylib.ClearBackground(Colours.DARK);
             stateManager.render();
             Raylib.EndDrawing();
         }

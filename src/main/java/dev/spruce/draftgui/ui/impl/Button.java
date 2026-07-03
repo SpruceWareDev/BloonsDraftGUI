@@ -2,6 +2,7 @@ package dev.spruce.draftgui.ui.impl;
 
 import com.raylib.Raylib;
 import dev.spruce.draftgui.ui.UIComponent;
+import dev.spruce.draftgui.utils.Colours;
 import dev.spruce.draftgui.utils.Rectangle;
 import dev.spruce.draftgui.utils.RenderUtils;
 
@@ -24,7 +25,7 @@ public class Button extends UIComponent {
     @Override
     public void render() {
         Raylib.DrawRectangleRounded(
-                new Rectangle(getX(), getY(), getWidth(), getHeight()).toRaylibRectangle(), (float) radius, 4, DARKGRAY);
+                new Rectangle(getX(), getY(), getWidth(), getHeight()).toRaylibRectangle(), (float) radius, 4, Colours.MEDIUM);
         Raylib.DrawText(text, (int) (getX() + getWidth() / 2 - Raylib.MeasureText(text, 20) / 2), (int) (getY() + getHeight() / 2 - 10), 20, WHITE);
     }
 

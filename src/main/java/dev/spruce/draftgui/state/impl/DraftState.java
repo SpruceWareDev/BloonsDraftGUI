@@ -20,6 +20,7 @@ import java.awt.desktop.AppForegroundListener;
 import java.util.List;
 
 import static com.raylib.Colors.BLACK;
+import static com.raylib.Colors.WHITE;
 
 public class DraftState extends State {
 
@@ -52,6 +53,7 @@ public class DraftState extends State {
 
         this.uiManager.addComponent(new Button("Save Draft", 6, 500, 250, 40, () -> {
             updatePlayerRounds();
+            /*
             int highestRound = 0;
             int highestIndex = 0;
             for (PlayerDraft playerDraft : this.draft.getPlayerDrafts()) {
@@ -63,6 +65,8 @@ public class DraftState extends State {
             }
             Player winner = Application.getFileManager().getPlayerByName(this.draft.getPlayerDrafts().get(highestIndex).getPlayer().getName());
             winner.incrementWins();
+
+             */
             Application.getFileManager().saveDraftFile(draft);
             Application.getStateManager().setState(new HomeState());
         }));
@@ -92,10 +96,10 @@ public class DraftState extends State {
 
     @Override
     public void render() {
-        Raylib.DrawText("Map: " + draft.getMap(), 6, 6, 20, BLACK);
-        Raylib.DrawText("Date: " + draft.getDate(), 6, 26, 20, BLACK);
+        RenderUtils.DrawTextAShadow("Map: " + draft.getMap(), 6, 6, 20, WHITE);
+        RenderUtils.DrawTextAShadow("Date: " + draft.getDate(), 6, 26, 20, WHITE);
 
-        RenderUtils.DrawTextAShadow("Leftover Towers:", 6, 46, 20, BLACK);
+        RenderUtils.DrawTextAShadow("Leftover Towers:", 6, 46, 20, WHITE);
         for (Tower tower : this.draft.getLeftOverTowers()) {
             RenderUtils.DrawTextAShadow(tower.getName(), 6,
                     66 + (this.draft.getLeftOverTowers().indexOf(tower) * 24), 20, tower.getType().getColor());

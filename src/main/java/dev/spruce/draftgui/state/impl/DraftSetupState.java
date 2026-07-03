@@ -32,7 +32,7 @@ public class DraftSetupState extends State {
         for (Player player : Application.getFileManager().getPlayers()) {
             playerNames.add(player.getName());
         }
-        this.playerSelect = new MultiSelectBox(220, 40, 200, 324, "Player Select", playerNames);
+        this.playerSelect = new MultiSelectBox(220, 40, 200, 424, "Player Select", playerNames);
         this.uiManager.addComponent(playerSelect);
 
 
@@ -66,7 +66,7 @@ public class DraftSetupState extends State {
 
     @Override
     public void render() {
-        Raylib.DrawText("Draft Setup State", 10, 10, 20, Colors.BLACK);
+        Raylib.DrawText("Draft Setup State", 10, 10, 20, Colors.WHITE);
         this.uiManager.render();
     }
 
