@@ -25,8 +25,8 @@ public class Button extends UIComponent {
     @Override
     public void render() {
         Raylib.DrawRectangleRounded(
-                new Rectangle(getX(), getY(), getWidth(), getHeight()).toRaylibRectangle(), (float) radius, 4, Colours.MEDIUM);
-        Raylib.DrawText(text, (int) (getX() + getWidth() / 2 - Raylib.MeasureText(text, 20) / 2), (int) (getY() + getHeight() / 2 - 10), 20, WHITE);
+                new Rectangle(getX(), getY(), getWidth(), getHeight()).toRaylibRectangle(), (float) radius, 4, Colours.DARKER);
+        RenderUtils.DrawTextAShadow(text, (int) (getX() + getWidth() / 2 - Raylib.MeasureText(text, 20) / 2), (int) (getY() + getHeight() / 2 - 10), 20, WHITE);
     }
 
     @Override

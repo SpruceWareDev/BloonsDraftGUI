@@ -9,6 +9,7 @@ import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.impl.MultiSelectBox;
+import dev.spruce.draftgui.utils.RenderUtils;
 import dev.spruce.draftgui.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class DraftSetupState extends State {
 
     @Override
     public void render() {
-        Raylib.DrawText("Draft Setup State", 10, 10, 20, Colors.WHITE);
+        RenderUtils.DrawTextAShadow("Draft Setup State", 10, 10, 20, Colors.WHITE);
         this.uiManager.render();
     }
 

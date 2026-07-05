@@ -5,6 +5,7 @@ import com.raylib.Raylib;
 import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.utils.Colours;
 import dev.spruce.draftgui.utils.Rectangle;
+import dev.spruce.draftgui.utils.RenderUtils;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class MultiSelectBox extends UIComponent {
     public void render() {
         Rectangle rect = new Rectangle(getX(), getY(), getWidth(), getHeight());
         Raylib.DrawRectangleRounded(rect.toRaylibRectangle(), 0.1f, 10, Colours.MEDIUM);
-        Raylib.DrawText(title, (int) getX() + 10, (int) getY() + 10, 20, Colors.WHITE);
+        RenderUtils.DrawTextAShadow(title, (int) getX() + 10, (int) getY() + 10, 20, Colors.WHITE);
 
         int optionHeight = (int) ((getHeight() - 36) / options.size());
         for (int i = 0; i < options.size(); i++) {
@@ -41,7 +42,7 @@ public class MultiSelectBox extends UIComponent {
             optionRect.setX(getX() + getWidth() - optionRect.getWidth() * 2);
             Raylib.DrawRectangleRounded(optionRect.toRaylibRectangle(), 1f, 10, selectedOptions[i] ? Colors.GREEN : Colors.DARKGRAY);
 
-            Raylib.DrawText(option, (int) getX() + 10, (int) optionY + 14, 20, Colors.WHITE);
+            RenderUtils.DrawTextAShadow(option, (int) getX() + 10, (int) optionY + 14, 20, Colors.WHITE);
         }
     }
 

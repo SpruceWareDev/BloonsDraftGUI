@@ -25,7 +25,7 @@ public class TextBox extends UIComponent {
         } else {
             Raylib.DrawRectangleLines((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight(), Colors.GRAY);
         }
-        Raylib.DrawText(text, (int) getX() + 5, (int) getY() + 5, 20, Colors.RED);
+        Raylib.DrawText(text, (int) getX() + 5, (int) getY() + 5, 20, Colours.LIGHT);
     }
 
     @Override

@@ -28,18 +28,18 @@ public class DraftList extends UIComponent {
     public void render() {
         Rectangle componentBounds = new Rectangle(getX(), getY(), getWidth(), getHeight());
         // Draw outer rectangle
-        Raylib.DrawRectangleRounded(componentBounds.toRaylibRectangle(), 0.1f, 10, Colours.LIGHT);
+        Raylib.DrawRectangleRounded(componentBounds.toRaylibRectangle(), 0.1f, 10, Colours.DARKER);
         // Draw inner rectangle
         Raylib.DrawRectangleRounded(Rectangle.fromXYWH(getX() + 2, getY() + 2, getWidth() - 4, getHeight() - 4).toRaylibRectangle(), 0.1f, 10, Colours.MEDIUM);
 
         final Player player = this.playerDraft.getPlayer();
 
-        RenderUtils.DrawTextAShadow(player.getName(), (int) (getX() + 6), (int) (getY() + 6), 20, 2, RED);
+        RenderUtils.DrawTextAShadow(player.getName(), (int) (getX() + 6), (int) (getY() + 6), 20, 3, RED);
 
         int i = 0;
         for (Tower tower : this.playerDraft.getTowers()) {
             Raylib.Color towerColor = tower.getType().getColor();
-            RenderUtils.DrawTextAShadow(tower.getName(), (int) (getX() + 6), (int) (getY() + 26 + (i * 20)), 20, towerColor);
+            RenderUtils.DrawTextAShadow(tower.getName(), (int) (getX() + 6), (int) (getY() + 26 + (i * 20)), 20, 2, towerColor);
             i++;
         }
 
