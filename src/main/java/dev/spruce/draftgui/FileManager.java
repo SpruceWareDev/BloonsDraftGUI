@@ -194,4 +194,20 @@ public class FileManager {
 
         return (float) wins / totalDrafts * 100;
     }
+
+    public int getPlayerHighestRound(Player player) {
+        int highestRound = 0;
+
+        for (Draft draft : loadDraftFiles()) {
+            for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+                if (playerDraft.getPlayer().equals(player)) {
+                    if (playerDraft.getRound() > highestRound) {
+                        highestRound = playerDraft.getRound();
+                    }
+                }
+            }
+        }
+
+        return highestRound;
+    }
 }

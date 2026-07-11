@@ -65,6 +65,8 @@ public class PlayerRecordState extends State {
         renderSection(x + 200, y, 100, UIUtils.BUTTON_HEIGHT, "Wins", String.valueOf(player.getWins()));
         renderSection(x + 306, y, 300, UIUtils.BUTTON_HEIGHT, "Win Percentage",
                 String.valueOf(Application.getFileManager().getPlayerWinPercentage(player)));
+        renderSection(x + 612, y, 300, UIUtils.BUTTON_HEIGHT, "Highest Round",
+                String.valueOf(Application.getFileManager().getPlayerHighestRound(player)));
     }
 
     private void renderSection(int x, int y, int width, int height, String title, String value) {
