@@ -50,6 +50,8 @@ public class PlayerRecordState extends State {
         }
 
         this.uiManager.render();
+
+        Raylib.DrawText("Average Round: " + Application.getFileManager().getOverallAverageRound(), 206, 6, 20, BLACK);
     }
 
     private void renderPlayerRecord(Player player) {
@@ -62,11 +64,14 @@ public class PlayerRecordState extends State {
 
         RenderUtils.DrawTextAShadow(player.getName(), 12, y, 20, 3,  WHITE);
 
-        renderSection(x + 200, y, 100, UIUtils.BUTTON_HEIGHT, "Wins", String.valueOf(player.getWins()));
+        String wins = player.getWins() + "/" + Application.getFileManager().getPlayerGamesPlayed(player);
+        renderSection(x + 200, y, 100, UIUtils.BUTTON_HEIGHT, "Wins", wins);
         renderSection(x + 306, y, 300, UIUtils.BUTTON_HEIGHT, "Win Percentage",
                 String.valueOf(Application.getFileManager().getPlayerWinPercentage(player)));
         renderSection(x + 612, y, 300, UIUtils.BUTTON_HEIGHT, "Highest Round",
                 String.valueOf(Application.getFileManager().getPlayerHighestRound(player)));
+        renderSection(x + 918, y, 300, UIUtils.BUTTON_HEIGHT, "Average Round",
+                String.valueOf(Application.getFileManager().getAverageRound(player)));
     }
 
     private void renderSection(int x, int y, int width, int height, String title, String value) {

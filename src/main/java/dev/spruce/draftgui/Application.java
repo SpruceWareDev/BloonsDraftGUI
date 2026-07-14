@@ -16,6 +16,7 @@ public class Application {
         Raylib.InitWindow(1200, 600, "DraftGUI");
         Raylib.SetTargetFPS(60);
         Raylib.SetWindowState(Raylib.FLAG_WINDOW_RESIZABLE);
+        Raylib.SetExitKey(0);
         stateManager = new StateManager();
         fileManager = new FileManager();
         fileManager.init();

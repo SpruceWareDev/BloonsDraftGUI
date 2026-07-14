@@ -195,6 +195,21 @@ public class FileManager {
         return (float) wins / totalDrafts * 100;
     }
 
+    public int getPlayerGamesPlayed(Player player) {
+        int gamesPlayed = 0;
+
+        for (Draft draft : loadDraftFiles()) {
+            for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+                if (playerDraft.getPlayer().equals(player)) {
+                    gamesPlayed++;
+                    break;
+                }
+            }
+        }
+
+        return gamesPlayed;
+    }
+
     public int getPlayerHighestRound(Player player) {
         int highestRound = 0;
 
@@ -209,5 +224,44 @@ public class FileManager {
         }
 
         return highestRound;
+    }
+
+    public int getAverageRound(Player player) {
+        int totalRounds = 0;
+        int gamesPlayed = 0;
+
+        for (Draft draft : loadDraftFiles()) {
+            for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+                if (playerDraft.getPlayer().equals(player)) {
+                    totalRounds += playerDraft.getRound();
+                    gamesPlayed++;
+                    break;
+                }
+            }
+        }
+
+        if (gamesPlayed == 0) {
+            return 0;
+        }
+
+        return totalRounds / gamesPlayed;
+    }
+
+    public int getOverallAverageRound() {
+        int totalRounds = 0;
+        int totalGames = 0;
+
+        for (Draft draft : loadDraftFiles()) {
+            for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+                totalRounds += playerDraft.getRound();
+                totalGames++;
+            }
+        }
+
+        if (totalGames == 0) {
+            return 0;
+        }
+
+        return totalRounds / totalGames;
     }
 }

@@ -13,19 +13,22 @@ import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.impl.DraftList;
 import dev.spruce.draftgui.utils.DateUtils;
 import dev.spruce.draftgui.utils.RenderUtils;
+import dev.spruce.draftgui.utils.Timer;
 
-import javax.swing.*;
-
-import java.awt.desktop.AppForegroundListener;
 import java.util.List;
 
-import static com.raylib.Colors.BLACK;
 import static com.raylib.Colors.WHITE;
 
 public class DraftState extends State {
 
     private UIManager uiManager;
     private final Draft draft;
+
+    private boolean rollingTowers;
+    private Timer rollTimer;
+    private static final long BASE_ROLL_TIME = 2; //50ms
+    private long rollTime = BASE_ROLL_TIME;
+    private int rollCounter = 0;
 
     public DraftState(String map, List<String> playerNames) {
         List<Player> players = playerNames.stream()
@@ -53,31 +56,25 @@ public class DraftState extends State {
 
         this.uiManager.addComponent(new Button("Save Draft", 6, 500, 250, 40, () -> {
             updatePlayerRounds();
-            /*
-            int highestRound = 0;
-            int highestIndex = 0;
-            for (PlayerDraft playerDraft : this.draft.getPlayerDrafts()) {
-                int playerRound = playerDraft.getRound();
-                if (playerRound > highestRound) {
-                    highestRound = playerRound;
-                    highestIndex = this.draft.getPlayerDrafts().indexOf(playerDraft);
-                }
-            }
-            Player winner = Application.getFileManager().getPlayerByName(this.draft.getPlayerDrafts().get(highestIndex).getPlayer().getName());
-            winner.incrementWins();
-
-             */
             Application.getFileManager().saveDraftFile(draft);
             Application.getStateManager().setState(new HomeState());
         }));
 
         this.uiManager.addComponent(new Button("Re-roll Towers", 6, 546, 250, 40, () -> {
+            rollTime = BASE_ROLL_TIME;
+            rollCounter = 30;
+            rollTimer = new Timer(rollTime);
+            this.rollingTowers = true;
+
+            /*
             this.draft.regenerateDraft();
             for (UIComponent component : this.uiManager.getComponents()) {
                 if (component instanceof DraftList draftList) {
                     draftList.setPlayerDraft(this.draft.getPlayerDrafts().get(this.uiManager.getComponents().indexOf(component)));
                 }
              }
+
+             */
         }));
     }
 
@@ -92,6 +89,25 @@ public class DraftState extends State {
     @Override
     public void update() {
         this.uiManager.update();
+
+        if (rollingTowers) {
+            if (rollCounter > 0 && this.rollTimer.hasElapsed()) {
+                this.draft.regenerateDraft();
+
+                for (UIComponent component : this.uiManager.getComponents()) {
+                    if (component instanceof DraftList draftList) {
+                        draftList.setPlayerDraft(this.draft.getPlayerDrafts().get(this.uiManager.getComponents().indexOf(component)));
+                    }
+                }
+
+                rollCounter--;
+                rollTime += 3;
+                this.rollTimer.setDuration(rollTime);
+                this.rollTimer.reset();
+            } else if (rollCounter <= 0) {
+                rollingTowers = false;
+            }
+        }
     }
 
     @Override
