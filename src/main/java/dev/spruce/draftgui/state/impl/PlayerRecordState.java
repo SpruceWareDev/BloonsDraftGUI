@@ -7,6 +7,7 @@ import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.utils.RenderUtils;
+import dev.spruce.draftgui.utils.Statistics;
 import dev.spruce.draftgui.utils.UIUtils;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class PlayerRecordState extends State {
     @Override
     public void initialize() {
         Application.getFileManager().updatePlayerWins();
+        Statistics.get().updateDraftFiles();
         this.uiManager = new UIManager();
         this.uiManager.addComponent(new Button("Back to Home", 6, 6, 200, 40,
                 () -> Application.getStateManager().setState(new HomeState()))
@@ -51,7 +53,7 @@ public class PlayerRecordState extends State {
 
         this.uiManager.render();
 
-        Raylib.DrawText("Average Round: " + Application.getFileManager().getOverallAverageRound(), 206, 6, 20, BLACK);
+        Raylib.DrawText("Average Round: " + Statistics.get().getOverallAverageRound(), 206, 6, 20, BLACK);
     }
 
     private void renderPlayerRecord(Player player) {
@@ -64,14 +66,14 @@ public class PlayerRecordState extends State {
 
         RenderUtils.DrawTextAShadow(player.getName(), 12, y, 20, 3,  WHITE);
 
-        String wins = player.getWins() + "/" + Application.getFileManager().getPlayerGamesPlayed(player);
+        String wins = player.getWins() + "/" + Statistics.get().getPlayerGamesPlayed(player);
         renderSection(x + 200, y, 100, UIUtils.BUTTON_HEIGHT, "Wins", wins);
         renderSection(x + 306, y, 300, UIUtils.BUTTON_HEIGHT, "Win Percentage",
-                String.valueOf(Application.getFileManager().getPlayerWinPercentage(player)));
+                String.valueOf(Statistics.get().getPlayerWinPercentage(player)));
         renderSection(x + 612, y, 300, UIUtils.BUTTON_HEIGHT, "Highest Round",
-                String.valueOf(Application.getFileManager().getPlayerHighestRound(player)));
+                String.valueOf(Statistics.get().getPlayerHighestRound(player)));
         renderSection(x + 918, y, 300, UIUtils.BUTTON_HEIGHT, "Average Round",
-                String.valueOf(Application.getFileManager().getAverageRound(player)));
+                String.valueOf(Statistics.get().getAverageRound(player)));
     }
 
     private void renderSection(int x, int y, int width, int height, String title, String value) {
