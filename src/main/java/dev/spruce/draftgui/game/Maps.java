@@ -100,24 +100,4 @@ public class Maps {
         "Muddy Puddles",
         "#Ouch"
     );
-
-    public static String getRandomBeginnerMap() {
-        int randomIndex = (int) (Math.random() * BEGINNER_MAPS.size());
-        return BEGINNER_MAPS.get(randomIndex);
-    }
-
-    public static String getRandomIntermediateMap() {
-        int randomIndex = (int) (Math.random() * INTERMEDIATE_MAPS.size());
-        return INTERMEDIATE_MAPS.get(randomIndex);
-    }
-
-    public static String getRandomAdvancedMap() {
-        int randomIndex = (int) (Math.random() * ADVANCED_MAPS.size());
-        return ADVANCED_MAPS.get(randomIndex);
-    }
-
-    public static String getRandomExpertMap() {
-        int randomIndex = (int) (Math.random() * EXPERT_MAPS.size());
-        return EXPERT_MAPS.get(randomIndex);
-    }
 }
