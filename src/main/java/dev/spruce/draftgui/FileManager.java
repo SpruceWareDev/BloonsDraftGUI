@@ -176,7 +176,7 @@ public class FileManager {
         }
     }
 
-    private List<PlayerDraft> calculateWinners(Draft draft) {
+    public List<PlayerDraft> calculateWinners(Draft draft) {
         List<PlayerDraft> winners = new ArrayList<>();
         int highestRound = 0;
 
