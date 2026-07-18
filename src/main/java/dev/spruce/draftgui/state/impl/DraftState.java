@@ -26,7 +26,7 @@ public class DraftState extends State {
 
     private boolean rollingTowers;
     private Timer rollTimer;
-    private static final long BASE_ROLL_TIME = 2; //50ms
+    private static final long BASE_ROLL_TIME = 2;
     private long rollTime = BASE_ROLL_TIME;
     private int rollCounter = 0;
 
