@@ -40,14 +40,6 @@ public class DraftSetupState extends State {
         this.uiManager.addComponent(new Button("Start Draft", Raylib.GetRenderWidth() - 166, Raylib.GetRenderHeight() - UIUtils.BUTTON_HEIGHT
                  - 6, 160, UIUtils.BUTTON_HEIGHT, () -> {
             boolean[] selectedDifficulties = difficultySelect.getSelectedOptions();
-            List<String> maps = new ArrayList<>();
-            if (selectedDifficulties[0]) maps.addAll(Maps.BEGINNER_MAPS);
-            if (selectedDifficulties[1]) maps.addAll(Maps.INTERMEDIATE_MAPS);
-            if (selectedDifficulties[2]) maps.addAll(Maps.ADVANCED_MAPS);
-            if (selectedDifficulties[3]) maps.addAll(Maps.EXPERT_MAPS);
-
-            //Pick a random map
-            String selectedMap = maps.get((int) (Math.random() * maps.size()));
 
             List<String> selectedPlayers = new ArrayList<>();
             for (int i = 0; i < playerSelect.getSelectedOptions().length; i++) {
@@ -56,7 +48,7 @@ public class DraftSetupState extends State {
                 }
             }
 
-            Application.getStateManager().setState(new DraftState(selectedMap, selectedPlayers));
+            Application.getStateManager().setState(new DraftState(selectedDifficulties, selectedPlayers));
         }));
     }
 

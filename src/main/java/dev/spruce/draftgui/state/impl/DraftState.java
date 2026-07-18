@@ -2,10 +2,7 @@ package dev.spruce.draftgui.state.impl;
 
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
-import dev.spruce.draftgui.game.Draft;
-import dev.spruce.draftgui.game.Player;
-import dev.spruce.draftgui.game.PlayerDraft;
-import dev.spruce.draftgui.game.Tower;
+import dev.spruce.draftgui.game.*;
 import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.ui.UIManager;
@@ -15,6 +12,7 @@ import dev.spruce.draftgui.utils.DateUtils;
 import dev.spruce.draftgui.utils.RenderUtils;
 import dev.spruce.draftgui.utils.Timer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.raylib.Colors.WHITE;
@@ -30,11 +28,22 @@ public class DraftState extends State {
     private long rollTime = BASE_ROLL_TIME;
     private int rollCounter = 0;
 
-    public DraftState(String map, List<String> playerNames) {
+    private final List<String> avaliableMaps;
+
+    public DraftState(boolean[] mapDifficulties, List<String> playerNames) {
+        avaliableMaps = new ArrayList<>();
+        if (mapDifficulties[0]) avaliableMaps.addAll(Maps.BEGINNER_MAPS);
+        if (mapDifficulties[1]) avaliableMaps.addAll(Maps.INTERMEDIATE_MAPS);
+        if (mapDifficulties[2]) avaliableMaps.addAll(Maps.ADVANCED_MAPS);
+        if (mapDifficulties[3]) avaliableMaps.addAll(Maps.EXPERT_MAPS);
+
+        //Pick a random map
+        String selectedMap = getRandomMap();
+
         List<Player> players = playerNames.stream()
                 .map(name -> Application.getFileManager().getPlayerByName(name))
                 .toList();
-        this.draft = new Draft(DateUtils.getDate(), map, players);
+        this.draft = new Draft(DateUtils.getDate(), selectedMap, players);
     }
 
     @Override
@@ -54,28 +63,20 @@ public class DraftState extends State {
             i++;
         }
 
-        this.uiManager.addComponent(new Button("Save Draft", 6, 500, 250, 40, () -> {
+        this.uiManager.addComponent(new Button("Save Draft", 6, 430, 250, 40, () -> {
             updatePlayerRounds();
             Application.getFileManager().saveDraftFile(draft);
             Application.getStateManager().setState(new HomeState());
         }));
 
-        this.uiManager.addComponent(new Button("Re-roll Towers", 6, 546, 250, 40, () -> {
+        this.uiManager.addComponent(new Button("Re-roll Towers", 6, 480, 250, 40, () -> {
             rollTime = BASE_ROLL_TIME;
             rollCounter = 30;
             rollTimer = new Timer(rollTime);
             this.rollingTowers = true;
-
-            /*
-            this.draft.regenerateDraft();
-            for (UIComponent component : this.uiManager.getComponents()) {
-                if (component instanceof DraftList draftList) {
-                    draftList.setPlayerDraft(this.draft.getPlayerDrafts().get(this.uiManager.getComponents().indexOf(component)));
-                }
-             }
-
-             */
         }));
+
+        this.uiManager.addComponent(new Button("Reroll Map", 6, 530, 250, 40, () -> this.draft.setMap(getRandomMap())));
     }
 
     private void updatePlayerRounds() {
@@ -127,5 +128,9 @@ public class DraftState extends State {
     @Override
     public void dispose() {
 
+    }
+
+    private String getRandomMap() {
+        return avaliableMaps.get((int) (Math.random() * avaliableMaps.size()));
     }
 }
