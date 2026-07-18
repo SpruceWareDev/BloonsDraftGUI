@@ -4,6 +4,7 @@ import com.raylib.Raylib;
 
 public class Colours {
 
+    public static final Raylib.Color DARKEST = rgb(40, 50, 90);
     public static final Raylib.Color DARKER = rgb(60, 70, 123);
     public static final Raylib.Color DARK = rgb(80, 88, 156);
     public static final Raylib.Color MEDIUM = rgb(99, 108, 203);
