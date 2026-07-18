@@ -11,8 +11,6 @@ import dev.spruce.draftgui.utils.Statistics;
 import dev.spruce.draftgui.utils.UIUtils;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.desktop.AppForegroundListener;
 
 import static com.raylib.Colors.*;
 

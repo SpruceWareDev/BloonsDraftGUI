@@ -13,7 +13,7 @@ public class MultiSelectBox extends UIComponent {
 
     private final String title;
     private final List<String> options;
-    private boolean[] selectedOptions;
+    private final boolean[] selectedOptions;
 
     public MultiSelectBox(float x, float y, float width, float height, String title, List<String> options) {
         super(x, y, width, height);

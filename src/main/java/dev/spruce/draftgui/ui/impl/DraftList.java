@@ -4,13 +4,12 @@ import com.raylib.Raylib;
 import dev.spruce.draftgui.game.Player;
 import dev.spruce.draftgui.game.PlayerDraft;
 import dev.spruce.draftgui.game.Tower;
-import dev.spruce.draftgui.game.Towers;
 import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.utils.Colours;
 import dev.spruce.draftgui.utils.Rectangle;
 import dev.spruce.draftgui.utils.RenderUtils;
 
-import static com.raylib.Colors.*;
+import static com.raylib.Colors.RED;
 
 public class DraftList extends UIComponent {
 

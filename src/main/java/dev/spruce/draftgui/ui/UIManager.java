@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UIManager {
 
-    private CopyOnWriteArrayList<UIComponent> components;
+    private final CopyOnWriteArrayList<UIComponent> components;
 
     public UIManager() {
         this.components = new CopyOnWriteArrayList<>();

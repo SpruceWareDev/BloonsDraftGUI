@@ -3,9 +3,6 @@ package dev.spruce.draftgui.utils;
 import com.raylib.Colors;
 import com.raylib.Raylib;
 
-import static com.raylib.Raylib.TEXTURE_FILTER_BILINEAR;
-import static com.raylib.Raylib.TEXTURE_FILTER_POINT;
-
 public class RenderUtils {
     
     public static double larp(double start, double end, double t) {

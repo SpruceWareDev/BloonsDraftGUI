@@ -6,13 +6,12 @@ import dev.spruce.draftgui.utils.Colours;
 import dev.spruce.draftgui.utils.Rectangle;
 import dev.spruce.draftgui.utils.RenderUtils;
 
-import static com.raylib.Colors.DARKGRAY;
 import static com.raylib.Colors.WHITE;
 
 public class Button extends UIComponent {
 
-    private String text;
-    private Runnable clickAction;
+    private final String text;
+    private final Runnable clickAction;
 
     private double radius = 0.1f;
 

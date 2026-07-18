@@ -19,7 +19,7 @@ public class Draft implements ISaveable {
 
     private final List<Player> players;
     private List<PlayerDraft> playerDrafts;
-    private int numPlayers;
+    private final int numPlayers;
 
     public Draft(String date, String map, List<Player> players) {
         this.date = date;
