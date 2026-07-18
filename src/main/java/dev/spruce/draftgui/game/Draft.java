@@ -128,4 +128,8 @@ public class Draft implements ISaveable {
     public String getSaveName() {
         return this.date + this.map + (int) (Math.random() * 100f) + FileManager.DRAFT_FILE_EXTENSION;
     }
+
+    public void setMap(String map) {
+        this.map = map;
+    }
 }
