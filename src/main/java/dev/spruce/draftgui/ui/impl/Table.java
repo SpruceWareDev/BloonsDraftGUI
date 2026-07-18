@@ -25,8 +25,6 @@ public class Table extends UIComponent {
 
     @Override
     public void render() {
-        int rowCounter = 0;
-
         Raylib.DrawRectangle((int) this.getX(), (int) this.getY(), (int) this.getWidth(), (int) this.rowHeight, Colours.DARKEST);
         int headingCounter = 0;
         for (String heading : this.headings) {
@@ -37,7 +35,7 @@ public class Table extends UIComponent {
             headingCounter++;
         }
 
-        rowCounter = 1;
+        int rowCounter = 1;
         for (Row row : this.rows) {
             final float cellWidth = this.getWidth() / this.headings.size();
 
