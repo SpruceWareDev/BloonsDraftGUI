@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Table extends UIComponent {
 
+    private final int CELL_FONT_SIZE = 22;
     private final float rowHeight;
     private final List<String> headings;
     private final List<Row> rows;
@@ -27,25 +28,36 @@ public class Table extends UIComponent {
         int rowCounter = 0;
 
         Raylib.DrawRectangle((int) this.getX(), (int) this.getY(), (int) this.getWidth(), (int) this.rowHeight, Colours.DARKEST);
+        int headingCounter = 0;
         for (String heading : this.headings) {
             float cellWidth = this.getWidth() / this.headings.size();
-            RenderUtils.DrawTextAShadow(heading, (int) (this.getX() + (cellWidth * rowCounter)) + 4,
+            RenderUtils.DrawTextAShadow(heading, (int) (this.getX() + (cellWidth * headingCounter)) + 4,
                     (int) (this.getY() + (this.rowHeight / 2)) - 11, 22, 4, Colors.WHITE
             );
-            rowCounter++;
+            headingCounter++;
         }
 
+        rowCounter = 1;
         for (Row row : this.rows) {
-            rowCounter = 0;
-            float cellWidth = this.getWidth() / this.headings.size();
+            final float cellWidth = this.getWidth() / this.headings.size();
+
+            Raylib.DrawRectangle((int) this.getX(), (int) (this.getY() + (this.rowHeight * rowCounter)),
+                    (int) this.getWidth(), (int) this.rowHeight, Colours.DARKER);
+
+            headingCounter = 0;
             for (String cell : row.getCells()) {
-                Raylib.DrawRectangle((int) (this.getX() + (cellWidth * rowCounter)), (int) (this.getY() + (this.rowHeight * (this.rows.indexOf(row) + 1))),
-                        (int) cellWidth, (int) this.rowHeight, Colours.DARKER);
-                RenderUtils.DrawTextAShadow(cell, (int) (this.getX() + (cellWidth * rowCounter)) + 4,
-                        (int) (this.getY() + (this.rowHeight * (this.rows.indexOf(row) + 1)) + (this.rowHeight / 2)) - 11, 22, 3, Colors.WHITE
+                float cellX = this.getX() + (cellWidth * headingCounter);
+                float cellY = this.getY() + (this.rowHeight * rowCounter);
+
+                RenderUtils.DrawTextAShadow(
+                        cell,
+                        (int) cellX + 4,
+                        (int) (cellY + (this.rowHeight / 2)) - CELL_FONT_SIZE / 2,
+                        CELL_FONT_SIZE, 4, row.getCellColor(cell)
                 );
-                rowCounter++;
+                headingCounter++;
             }
+            rowCounter++;
         }
     }
 
@@ -58,15 +70,34 @@ public class Table extends UIComponent {
         this.rows.add(new Row(cells));
     }
 
-    private class Row {
+    public void addRow(Row row) {
+        this.rows.add(row);
+    }
+
+    public static class Row {
         private final List<String> cells;
+        private final List<Raylib.Color> cellColors;
 
         public Row(List<String> cells) {
             this.cells = cells;
+            this.cellColors = List.of(Colors.WHITE, Colors.WHITE, Colors.WHITE, Colors.WHITE, Colors.WHITE);
+        }
+
+        public Row(List<String> cells, List<Raylib.Color> cellColors) {
+            this.cells = cells;
+            this.cellColors = cellColors;
         }
 
         public List<String> getCells() {
             return cells;
+        }
+
+        public List<Raylib.Color> getCellColors() {
+            return cellColors;
+        }
+
+        public Raylib.Color getCellColor(String cellValue) {
+            return cellColors.get(cells.indexOf(cellValue));
         }
     }
 }

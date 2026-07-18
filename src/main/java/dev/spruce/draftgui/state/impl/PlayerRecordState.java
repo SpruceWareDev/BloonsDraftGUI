@@ -7,12 +7,10 @@ import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.impl.Table;
-import dev.spruce.draftgui.utils.RenderUtils;
 import dev.spruce.draftgui.utils.Statistics;
 import dev.spruce.draftgui.utils.UIUtils;
 
 import javax.swing.*;
-
 import java.util.List;
 
 import static com.raylib.Colors.*;
@@ -45,12 +43,17 @@ public class PlayerRecordState extends State {
                 6, 6 + (UIUtils.BUTTON_HEIGHT + 2) * 2, Raylib.GetRenderWidth() - 12, 30
         );
         for (Player player : Application.getFileManager().getPlayers()) {
-            table.addRow(List.of(
-                player.getName(),
-                String.valueOf(player.getWins()),
-                String.format("%.2f", Statistics.get().getPlayerWinPercentage(player)),
-                String.valueOf(Statistics.get().getAverageRound(player)),
-                String.valueOf(Statistics.get().getPlayerHighestRound(player))
+            float winPercentage = Statistics.get().getPlayerWinPercentage(player);
+            Raylib.Color winPercentageColor = winPercentage >= 50 ? GREEN : (winPercentage >= 30.0 ? ORANGE : RED);
+            table.addRow(new Table.Row(
+                    List.of(
+                            player.getName(),
+                            String.valueOf(player.getWins()),
+                            String.format("%.2f", winPercentage),
+                            String.valueOf(Statistics.get().getAverageRound(player)),
+                            String.valueOf(Statistics.get().getPlayerHighestRound(player))
+                    ),
+                    List.of(WHITE, WHITE, winPercentageColor, WHITE, WHITE)
             ));
         }
         this.uiManager.addComponent(table);
