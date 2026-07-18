@@ -12,16 +12,6 @@ public class RenderUtils {
         return start + (end - start) * t;
     }
 
-    public static void DrawTextB(Raylib.Font font, String text, int posX, int posY, int fontSize, int spacing, Raylib.Color tint) {
-        Raylib.Vector2 textPosition = new Raylib.Vector2();
-        textPosition.x(posX);
-        textPosition.y(posY);
-        //Enable antialiasing for the text
-
-        Raylib.SetTextureFilter(font.texture(), TEXTURE_FILTER_BILINEAR);
-        Raylib.DrawTextEx(font, text, textPosition, fontSize, spacing, tint);
-    }
-
     public static void DrawTextAShadow(String text, int posX, int posY, int fontSize, Raylib.Color tint) {
         Raylib.DrawText(text, posX + 1, posY + 1, fontSize, Colors.BLACK);
         Raylib.DrawText(text, posX, posY, fontSize, tint);

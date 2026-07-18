@@ -1,7 +1,6 @@
 package dev.spruce.draftgui.ui.impl;
 
 import com.raylib.Raylib;
-import dev.spruce.draftgui.FontManager;
 import dev.spruce.draftgui.game.Player;
 import dev.spruce.draftgui.game.PlayerDraft;
 import dev.spruce.draftgui.game.Tower;
