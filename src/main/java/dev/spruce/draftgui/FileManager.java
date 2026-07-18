@@ -88,6 +88,24 @@ public class FileManager {
         }
     }
 
+    public int getNextDraftIndex(String date, String map) {
+        File draftsDir = new File(DRAFTS_DIR);
+        File[] files = draftsDir.listFiles((dir, name) -> name.endsWith(DRAFT_FILE_EXTENSION));
+        if (files == null) return 1;
+
+        String prefix = date + map + "_";
+        int max = 0;
+        for (File f : files) {
+            String name = f.getName();
+            if (!name.startsWith(prefix)) continue;
+            String numPart = name.substring(prefix.length(), name.length() - DRAFT_FILE_EXTENSION.length());
+            try {
+                max = Math.max(max, Integer.parseInt(numPart));
+            } catch (NumberFormatException ignore) {}
+        }
+        return max+1;
+    }
+
     public void saveDraftFile(Draft draft) {
         String filename = draft.getSaveName();
         File draftFile = new File(DRAFTS_DIR, filename);

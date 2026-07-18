@@ -4,6 +4,7 @@ import dev.spruce.draftgui.Application;
 import dev.spruce.draftgui.FileManager;
 import dev.spruce.draftgui.files.ISaveable;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Draft implements ISaveable {
 
     private String date;
     private String map;
+    private String fileName;
 
     private final List<Player> players;
     private List<PlayerDraft> playerDrafts;
@@ -126,7 +128,11 @@ public class Draft implements ISaveable {
 
     @Override
     public String getSaveName() {
-        return this.date + this.map + (int) (Math.random() * 100f) + FileManager.DRAFT_FILE_EXTENSION;
+        if (fileName == null) {
+            int index = Application.getFileManager().getNextDraftIndex(date, map);
+            fileName = date + map + "_" + index + FileManager.DRAFT_FILE_EXTENSION;
+        }
+        return fileName;
     }
 
     public void setMap(String map) {
