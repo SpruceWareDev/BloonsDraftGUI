@@ -54,6 +54,10 @@ public class DraftList extends UIComponent {
     }
 
     public void updateRound() {
-        this.playerDraft.setRound(this.roundTextBox.getInteger());
+        try {
+            this.playerDraft.setRound(this.roundTextBox.getInteger());
+        } catch (NumberFormatException e) {
+           throw new NumberFormatException("No round number for player: " + this.playerDraft.getPlayer().getName());
+        }
     }
 }
