@@ -68,7 +68,7 @@ public class TowerSelectState extends State {
     public void render() {
         String text = draftComplete ? "Draft Complete!" : this.currentPlayerLoadout.getPlayer().getName() + "'s Turn";
         RenderUtils.DrawTextAShadow(
-                text,
+                text, 
                 (int) (Raylib.GetRenderWidth() / 2f) - (Raylib.MeasureText(text, 40) / 2),
                 50,
                 40,
