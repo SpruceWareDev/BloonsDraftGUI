@@ -2,8 +2,8 @@ package dev.spruce.draftgui.ui;
 
 public abstract class UIComponent {
 
-    private final float x;
-    private final float y;
+    private float x;
+    private float y;
     private final float width;
     private final float height;
 
@@ -31,5 +31,13 @@ public UIComponent(float x, float y, float width, float height) {
 
     public float getHeight() {
         return height;
+    }
+
+    protected void setX(float x) {
+        this.x = x;
+    }
+
+    protected void setY(float y) {
+        this.y = y;
     }
 }

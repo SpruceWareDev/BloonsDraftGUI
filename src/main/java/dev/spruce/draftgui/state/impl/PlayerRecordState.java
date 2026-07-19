@@ -8,7 +8,7 @@ import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.impl.Table;
 import dev.spruce.draftgui.utils.Statistics;
-import dev.spruce.draftgui.utils.UIUtils;
+import dev.spruce.draftgui.ui.UIConstants;
 
 import javax.swing.*;
 import java.util.List;
@@ -29,7 +29,7 @@ public class PlayerRecordState extends State {
                 () -> Application.getStateManager().setState(new HomeState()))
         );
 
-        this.uiManager.addComponent(new Button("Add Player", 6, 6 + UIUtils.BUTTON_HEIGHT + 2, 200, 40,
+        this.uiManager.addComponent(new Button("Add Player", 6, 6 + UIConstants.BUTTON_HEIGHT + 2, 200, 40,
                 () -> {
                     String playerName = JOptionPane.showInputDialog("Enter player name:");
                     if (playerName != null && !playerName.trim().isEmpty()) {
@@ -40,7 +40,7 @@ public class PlayerRecordState extends State {
 
         Table table = new Table(
                 List.of("Player Name", "Wins", "Win %", "Avg Round", "Max Round"),
-                6, 6 + (UIUtils.BUTTON_HEIGHT + 2) * 2, Raylib.GetRenderWidth() - 12, 30
+                6, 6 + (UIConstants.BUTTON_HEIGHT + 2) * 2, Raylib.GetRenderWidth() - 12, 30
         );
         for (Player player : Application.getFileManager().getPlayers()) {
             float winPercentage = Statistics.get().getPlayerWinPercentage(player);

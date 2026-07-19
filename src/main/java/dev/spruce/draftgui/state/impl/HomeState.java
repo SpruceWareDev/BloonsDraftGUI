@@ -3,10 +3,9 @@ package dev.spruce.draftgui.state.impl;
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
 import dev.spruce.draftgui.state.State;
-import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
-import dev.spruce.draftgui.utils.UIUtils;
+import dev.spruce.draftgui.ui.UIConstants;
 
 public class HomeState extends State {
 
@@ -17,15 +16,15 @@ public class HomeState extends State {
         this.uiManager = new UIManager();
 
         this.uiManager.addComponent(new Button("Start Draft",
-                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 40f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
+                Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 40f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new DraftSetupState());
         }));
         this.uiManager.addComponent(new Button("Players",
-                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 100f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
+                Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 100f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new PlayerRecordState());
         }));
         this.uiManager.addComponent(new Button("Previous Drafts",
-                Raylib.GetRenderWidth() / 2f - UIUtils.BUTTON_WIDTH / 2f, 160f, UIUtils.BUTTON_WIDTH, UIUtils.BUTTON_HEIGHT, () -> {
+                Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 160f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new PreviousDraftsState());
         }));
     }

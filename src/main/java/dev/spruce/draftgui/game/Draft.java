@@ -34,6 +34,19 @@ public class Draft implements ISaveable {
         this.numPlayers = playerDrafts.size();
     }
 
+    public Draft(String date, String map, List<Player> players, List<PlayerLoadout> playerLoadouts) {
+        this.date = date;
+        this.map = map;
+        this.players = players;
+        this.playerDrafts = new ArrayList<>();
+        if (playerLoadouts.size() > 1) {
+            for (PlayerLoadout loadout : playerLoadouts) {
+                this.playerDrafts.add(new PlayerDraft(loadout.getPlayer(), loadout.getTowers(), 0));
+            }
+        }
+        this.numPlayers = playerDrafts.size();
+    }
+
     public void regenerateDraft() {
         this.playerDrafts = generateDrafts(this.players);
     }

@@ -46,6 +46,22 @@ public class DraftState extends State {
         this.draft = new Draft(DateUtils.getDate(), selectedMap, players);
     }
 
+    public DraftState(boolean[] mapDifficulties, List<PlayerLoadout> playerLoadouts, boolean ignoreThisBooleanYouCheekyTart) {
+        avaliableMaps = new ArrayList<>();
+        if (mapDifficulties[0]) avaliableMaps.addAll(Maps.BEGINNER_MAPS);
+        if (mapDifficulties[1]) avaliableMaps.addAll(Maps.INTERMEDIATE_MAPS);
+        if (mapDifficulties[2]) avaliableMaps.addAll(Maps.ADVANCED_MAPS);
+        if (mapDifficulties[3]) avaliableMaps.addAll(Maps.EXPERT_MAPS);
+
+        //Pick a random map
+        String selectedMap = getRandomMap();
+
+        List<Player> players = playerLoadouts.stream()
+                .map(PlayerLoadout::getPlayer)
+                .toList();
+        this.draft = new Draft(DateUtils.getDate(), selectedMap, players, playerLoadouts);
+    }
+
     @Override
     public void initialize() {
         this.uiManager = new UIManager();

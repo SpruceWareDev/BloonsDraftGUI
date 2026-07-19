@@ -20,4 +20,25 @@ public class RenderUtils {
         }
         Raylib.DrawText(text, posX, posY, fontSize, tint);
     }
+
+    /**
+     * Draws a texture on the screen.
+     *
+     * @param texture  The texture to draw.
+     * @param x        The x-coordinate of the texture's top-left corner.
+     * @param y        The y-coordinate of the texture's top-left corner.
+     * @param width    The width of the texture.
+     * @param height   The height of the texture.
+     * @param rotation The rotation of the texture in degrees.
+     * @param tint     The tint colour to apply to the texture.
+     */
+    public static void drawTexture(Raylib.Texture texture, float x, float y, float width, float height, float rotation, Raylib.Color tint) {
+        Raylib.Rectangle sourceRect = new Raylib.Rectangle().x(0).y(0).width(texture.width()).height(texture.height());
+        Raylib.Rectangle destRect = new Raylib.Rectangle().x(x).y(y).width(width).height(height);
+        Raylib.Vector2 origin = new Raylib.Vector2().x(0).y(0);
+        Raylib.DrawTexturePro(texture, sourceRect, destRect, origin, rotation, tint);
+        sourceRect.deallocate();
+        destRect.deallocate();
+        origin.deallocate();
+    }
 }
