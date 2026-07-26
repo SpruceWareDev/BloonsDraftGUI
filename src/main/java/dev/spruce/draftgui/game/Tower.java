@@ -6,12 +6,15 @@ public class Tower {
 
     private final String name;
     private final TowerType type;
+    private final TowerRank rank;
+
     private final String texturePath;
     private Raylib.Texture texture;
 
-    public Tower(String name, TowerType type, String texturePath) {
+    public Tower(String name, TowerType type, TowerRank rank, String texturePath) {
         this.name = name;
         this.type = type;
+        this.rank = rank;
         this.texturePath = texturePath;
     }
 
@@ -35,5 +38,9 @@ public class Tower {
             Raylib.UnloadTexture(texture);
             texture = null;
         }
+    }
+
+    public TowerRank getRank() {
+        return rank;
     }
 }

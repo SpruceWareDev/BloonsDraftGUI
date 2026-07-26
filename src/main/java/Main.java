@@ -1,4 +1,8 @@
 import dev.spruce.draftgui.Application;
+import dev.spruce.draftgui.game.Tower;
+import dev.spruce.draftgui.game.Towers;
+
+import java.util.*;
 
 public class Main {
 
