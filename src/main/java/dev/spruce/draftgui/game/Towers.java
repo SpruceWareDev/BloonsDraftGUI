@@ -50,7 +50,7 @@ public class Towers {
         HashMap<Tower, Integer> towerRankMap = new HashMap<>();
         for (Tower tower : TOWERS) {
             TowerRank towerRank = tower.getRank();
-            int totalRank = towerRank.getCost() + towerRank.getDamage() + towerRank.getMoney() + towerRank.getSupport();
+            int totalRank = towerRank.cost() + towerRank.damage() + towerRank.money() + towerRank.support();
             towerRankMap.put(tower, totalRank);
         }
         return towerRankMap;
