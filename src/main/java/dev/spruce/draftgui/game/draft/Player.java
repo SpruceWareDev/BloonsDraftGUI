@@ -1,4 +1,4 @@
-package dev.spruce.draftgui.game;
+package dev.spruce.draftgui.game.draft;
 
 import dev.spruce.draftgui.FileManager;
 import dev.spruce.draftgui.files.ISaveable;

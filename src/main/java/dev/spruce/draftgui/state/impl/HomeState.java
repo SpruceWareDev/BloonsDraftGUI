@@ -27,6 +27,10 @@ public class HomeState extends State {
                 Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 160f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new PreviousDraftsState());
         }));
+        this.uiManager.addComponent(new Button("Tower Info",
+                Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 220f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
+            Application.getStateManager().setState(new TowerInfoState());
+        }));
     }
 
     @Override

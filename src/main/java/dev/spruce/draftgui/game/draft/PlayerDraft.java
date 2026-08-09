@@ -1,4 +1,6 @@
-package dev.spruce.draftgui.game;
+package dev.spruce.draftgui.game.draft;
+
+import dev.spruce.draftgui.game.tower.Tower;
 
 import java.util.List;
 

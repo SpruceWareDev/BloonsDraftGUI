@@ -3,7 +3,7 @@ package dev.spruce.draftgui.state.impl;
 import com.raylib.Colors;
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
-import dev.spruce.draftgui.game.Player;
+import dev.spruce.draftgui.game.draft.Player;
 import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
@@ -13,6 +13,7 @@ import dev.spruce.draftgui.ui.UIConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DraftSetupState extends State {
@@ -46,8 +47,17 @@ public class DraftSetupState extends State {
         }));
 
         this.uiManager.addComponent(new Button("Custom Start", 6, Raylib.GetRenderHeight() - UIConstants.BUTTON_HEIGHT - 6, 160, UIConstants.BUTTON_HEIGHT, () -> {
+            List<Player> selectedPlayers =
+                    new ArrayList<>(Application.getFileManager()
+                            .getPlayers()
+                            .stream()
+                            .filter(player -> getSelectedPlayers().contains(player.getName()))
+                            .toList());
+
+            Collections.shuffle(selectedPlayers);
+
             Application.getStateManager().setState(new TowerSelectState(
-                    Application.getFileManager().getPlayers().stream().filter(player -> getSelectedPlayers().contains(player.getName())).toList(),
+                    selectedPlayers,
                     difficultySelect.getSelectedOptions()
             ));
         }));

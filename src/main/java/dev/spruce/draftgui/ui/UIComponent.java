@@ -2,10 +2,10 @@ package dev.spruce.draftgui.ui;
 
 public abstract class UIComponent {
 
-    private float x;
-    private float y;
-    private final float width;
-    private final float height;
+    protected float x;
+    protected float y;
+    protected final float width;
+    protected final float height;
 
 public UIComponent(float x, float y, float width, float height) {
         this.x = x;

@@ -2,10 +2,12 @@ package dev.spruce.draftgui.state.impl;
 
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
-import dev.spruce.draftgui.game.Player;
+import dev.spruce.draftgui.game.draft.Draft;
+import dev.spruce.draftgui.game.draft.Player;
 import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
+import dev.spruce.draftgui.ui.impl.LineGraph;
 import dev.spruce.draftgui.ui.impl.Table;
 import dev.spruce.draftgui.utils.Statistics;
 import dev.spruce.draftgui.ui.UIConstants;
@@ -57,6 +59,10 @@ public class PlayerRecordState extends State {
             ));
         }
         this.uiManager.addComponent(table);
+
+        List<Float> tomRounds = Application.getFileManager().getPlayersRounds(Application.getFileManager().getPlayerByName("Tom"));
+        LineGraph lineGraph = new LineGraph(6, 6 + (UIConstants.BUTTON_HEIGHT + 2) * 2 + table.getHeight() + 10, Raylib.GetRenderWidth() - 12, 200, tomRounds);
+        //this.uiManager.addComponent(lineGraph);
     }
 
     @Override

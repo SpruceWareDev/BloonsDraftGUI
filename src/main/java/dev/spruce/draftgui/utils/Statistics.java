@@ -1,11 +1,10 @@
 package dev.spruce.draftgui.utils;
 
 import dev.spruce.draftgui.Application;
-import dev.spruce.draftgui.game.Draft;
-import dev.spruce.draftgui.game.Player;
-import dev.spruce.draftgui.game.PlayerDraft;
+import dev.spruce.draftgui.game.draft.Draft;
+import dev.spruce.draftgui.game.draft.Player;
+import dev.spruce.draftgui.game.draft.PlayerDraft;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Statistics {

@@ -2,7 +2,7 @@ package dev.spruce.draftgui.ui.impl;
 
 import com.raylib.Colors;
 import com.raylib.Raylib;
-import dev.spruce.draftgui.game.Tower;
+import dev.spruce.draftgui.game.tower.Tower;
 import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.utils.Colours;
 import dev.spruce.draftgui.utils.Rectangle;

@@ -1,9 +1,9 @@
 package dev.spruce.draftgui.ui.impl;
 
 import com.raylib.Raylib;
-import dev.spruce.draftgui.game.Player;
-import dev.spruce.draftgui.game.PlayerDraft;
-import dev.spruce.draftgui.game.Tower;
+import dev.spruce.draftgui.game.draft.Player;
+import dev.spruce.draftgui.game.draft.PlayerDraft;
+import dev.spruce.draftgui.game.tower.Tower;
 import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.utils.Colours;
 import dev.spruce.draftgui.utils.Rectangle;

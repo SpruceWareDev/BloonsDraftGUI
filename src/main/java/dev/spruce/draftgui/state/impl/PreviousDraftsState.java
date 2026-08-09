@@ -2,9 +2,8 @@ package dev.spruce.draftgui.state.impl;
 
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
-import dev.spruce.draftgui.game.Draft;
-import dev.spruce.draftgui.game.Player;
-import dev.spruce.draftgui.game.PlayerDraft;
+import dev.spruce.draftgui.game.draft.Draft;
+import dev.spruce.draftgui.game.draft.PlayerDraft;
 import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;

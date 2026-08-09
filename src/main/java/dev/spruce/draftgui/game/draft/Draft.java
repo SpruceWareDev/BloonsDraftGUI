@@ -1,11 +1,11 @@
-package dev.spruce.draftgui.game;
+package dev.spruce.draftgui.game.draft;
 
 import dev.spruce.draftgui.Application;
 import dev.spruce.draftgui.FileManager;
 import dev.spruce.draftgui.files.ISaveable;
+import dev.spruce.draftgui.game.tower.Tower;
+import dev.spruce.draftgui.game.tower.Towers;
 
-import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

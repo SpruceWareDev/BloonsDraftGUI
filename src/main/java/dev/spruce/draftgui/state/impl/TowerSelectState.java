@@ -3,11 +3,13 @@ package dev.spruce.draftgui.state.impl;
 import com.raylib.Colors;
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
-import dev.spruce.draftgui.game.*;
+import dev.spruce.draftgui.game.draft.Player;
+import dev.spruce.draftgui.game.draft.PlayerLoadout;
+import dev.spruce.draftgui.game.tower.Tower;
+import dev.spruce.draftgui.game.tower.Towers;
 import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.TowerCard;
-import dev.spruce.draftgui.utils.DateUtils;
 import dev.spruce.draftgui.utils.RenderUtils;
 
 import java.util.ArrayList;
@@ -103,7 +105,7 @@ public class TowerSelectState extends State {
             nextPlayer();
         }
     }
-
+    
     private List<Tower> generateTowerSelection() {
         List<Tower> towers = new ArrayList<>();
         List<Tower> tempAvailableTowers = new ArrayList<>(availableTowers);
@@ -115,4 +117,23 @@ public class TowerSelectState extends State {
         }
         return towers;
     }
+
+    /*
+    private List<Tower> generateTowerSelection() {
+        List<Tower> towers = new ArrayList<>();
+        List<Tower> tempAvailableTowers = new ArrayList<>(availableTowers);
+        int cardCount = Math.min(3, tempAvailableTowers.size());
+
+        int randomListIndex = (int) (Math.random() * tempAvailableTowers.size());
+        int startIndex = Math.min(randomListIndex, tempAvailableTowers.size() - cardCount);
+
+        for (int i = startIndex; i < cardCount; i++) {
+            Tower tower = tempAvailableTowers.get(i);
+            towers.add(tower);
+            tempAvailableTowers.remove(tower);
+        }
+        return towers;
+    }
+    */
+
 }

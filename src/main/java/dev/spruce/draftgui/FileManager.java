@@ -1,11 +1,9 @@
 package dev.spruce.draftgui;
 
-import dev.spruce.draftgui.game.Draft;
-import dev.spruce.draftgui.game.Player;
-import dev.spruce.draftgui.game.PlayerDraft;
-import dev.spruce.draftgui.ui.impl.DraftList;
+import dev.spruce.draftgui.game.draft.Draft;
+import dev.spruce.draftgui.game.draft.Player;
+import dev.spruce.draftgui.game.draft.PlayerDraft;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -145,6 +143,18 @@ public class FileManager {
         }
 
         return drafts;
+    }
+
+    public List<Float> getPlayersRounds(Player player) {
+        List<Float> rounds = new ArrayList<>();
+        for (Draft draft : loadDraftFiles()) {
+            for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+                if (playerDraft.getPlayer().getName().equals(player.getName())) {
+                    rounds.add((float) playerDraft.getRound());
+                }
+            }
+        }
+        return rounds;
     }
 
     public void saveAll() {

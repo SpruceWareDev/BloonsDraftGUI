@@ -78,12 +78,23 @@ public class Table extends UIComponent {
 
         public Row(List<String> cells) {
             this.cells = cells;
-            this.cellColors = List.of(Colors.WHITE, Colors.WHITE, Colors.WHITE, Colors.WHITE, Colors.WHITE);
+            this.cellColors = new ArrayList<>();
+            for (int i = 0; i < cells.size(); i++) {
+                this.cellColors.add(Colors.WHITE);
+            }
         }
 
         public Row(List<String> cells, List<Raylib.Color> cellColors) {
             this.cells = cells;
             this.cellColors = cellColors;
+        }
+
+        public Row(List<String> cells, Raylib.Color cellColor) {
+            this.cells = cells;
+            this.cellColors = new ArrayList<>();
+            for (int i = 0; i < cells.size(); i++) {
+                this.cellColors.add(cellColor);
+            }
         }
 
         public List<String> getCells() {

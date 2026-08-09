@@ -1,4 +1,4 @@
-package dev.spruce.draftgui.game;
+package dev.spruce.draftgui.game.tower;
 
 import com.raylib.Colors;
 import com.raylib.Raylib;
