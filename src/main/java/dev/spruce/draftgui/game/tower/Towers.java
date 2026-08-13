@@ -63,4 +63,13 @@ public class Towers {
         entryList.sort(Map.Entry.comparingByValue());
         return entryList;
     }
+
+    public static int getTotalRankOverall() {
+        int totalRank = 0;
+        for (Tower tower : TOWERS) {
+            TowerRank towerRank = tower.getRank();
+            totalRank += towerRank.cost() + towerRank.damage() + towerRank.money() + towerRank.support();
+        }
+        return totalRank;
+    }
 }

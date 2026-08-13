@@ -133,7 +133,7 @@ public class FileManager {
         for (File draftFile : draftFiles) {
             try {
                 String data = Files.readString(draftFile.toPath());
-                Draft draft = new Draft("", "", new ArrayList<>());
+                Draft draft = new Draft("", "", new ArrayList<>(), false);
                 draft.load(data);
                 drafts.add(draft);
             } catch (Exception e) {

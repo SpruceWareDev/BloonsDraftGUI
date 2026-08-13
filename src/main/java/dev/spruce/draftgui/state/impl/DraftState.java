@@ -35,7 +35,7 @@ public class DraftState extends State {
 
     private final List<String> avaliableMaps;
 
-    public DraftState(boolean[] mapDifficulties, List<String> playerNames) {
+    public DraftState(boolean[] mapDifficulties, List<String> playerNames, boolean fairDraft) {
         avaliableMaps = new ArrayList<>();
         if (mapDifficulties[0]) avaliableMaps.addAll(Maps.BEGINNER_MAPS);
         if (mapDifficulties[1]) avaliableMaps.addAll(Maps.INTERMEDIATE_MAPS);
@@ -48,10 +48,10 @@ public class DraftState extends State {
         List<Player> players = playerNames.stream()
                 .map(name -> Application.getFileManager().getPlayerByName(name))
                 .toList();
-        this.draft = new Draft(DateUtils.getDate(), selectedMap, players);
+        this.draft = new Draft(DateUtils.getDate(), selectedMap, players, !fairDraft);
     }
 
-    public DraftState(boolean[] mapDifficulties, List<PlayerLoadout> playerLoadouts, boolean ignoreThisBooleanYouCheekyTart) {
+    public DraftState(boolean[] mapDifficulties, List<PlayerLoadout> playerLoadouts) {
         avaliableMaps = new ArrayList<>();
         if (mapDifficulties[0]) avaliableMaps.addAll(Maps.BEGINNER_MAPS);
         if (mapDifficulties[1]) avaliableMaps.addAll(Maps.INTERMEDIATE_MAPS);

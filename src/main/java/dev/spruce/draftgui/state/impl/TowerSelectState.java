@@ -48,8 +48,7 @@ public class TowerSelectState extends State {
         this.uiManager.update();
 
         if (this.draftComplete) {
-            Application.getStateManager().setState(new DraftState(this.mapDifficulties, this.playerLoadouts, false));
-
+            Application.getStateManager().setState(new DraftState(this.mapDifficulties, this.playerLoadouts));
         }
 
         if (this.swapTowerCards) {

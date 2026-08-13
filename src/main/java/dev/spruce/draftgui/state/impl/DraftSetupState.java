@@ -21,11 +21,12 @@ public class DraftSetupState extends State {
     private UIManager uiManager;
     private MultiSelectBox difficultySelect;
     private MultiSelectBox playerSelect;
+    private MultiSelectBox extraOptionsSelect;
 
     @Override
     public void initialize() {
         this.uiManager = new UIManager();
-        this.difficultySelect = new MultiSelectBox(6, 40, 200, 224, "Difficulty Select",
+        this.difficultySelect = new MultiSelectBox(6, 40, 200, 224, "Difficulty Select", true,
                 Arrays.asList("Beginner", "Intermediate", "Advanced", "Expert"));
         this.uiManager.addComponent(difficultySelect);
 
@@ -33,8 +34,12 @@ public class DraftSetupState extends State {
         for (Player player : Application.getFileManager().getPlayers()) {
             playerNames.add(player.getName());
         }
-        this.playerSelect = new MultiSelectBox(220, 40, 200, 424, "Player Select", playerNames);
+        this.playerSelect = new MultiSelectBox(220, 40, 200, 424, "Player Select", true, playerNames);
         this.uiManager.addComponent(playerSelect);
+
+        this.extraOptionsSelect = new MultiSelectBox(434, 40, 200, 224, "Extra Options", true,
+                Arrays.asList("Fair Draft"));
+        this.uiManager.addComponent(extraOptionsSelect);
 
 
         this.uiManager.addComponent(new Button("Start Draft", Raylib.GetRenderWidth() - 166, Raylib.GetRenderHeight() - UIConstants.BUTTON_HEIGHT
@@ -43,7 +48,7 @@ public class DraftSetupState extends State {
 
             List<String> selectedPlayers = getSelectedPlayers();
 
-            Application.getStateManager().setState(new DraftState(selectedDifficulties, selectedPlayers));
+            Application.getStateManager().setState(new DraftState(selectedDifficulties, selectedPlayers, extraOptionsSelect.getSelectedOptions()[0]));
         }));
 
         this.uiManager.addComponent(new Button("Custom Start", 6, Raylib.GetRenderHeight() - UIConstants.BUTTON_HEIGHT - 6, 160, UIConstants.BUTTON_HEIGHT, () -> {

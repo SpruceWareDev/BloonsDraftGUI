@@ -43,6 +43,7 @@ public class Table extends UIComponent {
                     (int) this.getWidth(), (int) this.rowHeight, Colours.DARKER);
 
             headingCounter = 0;
+            int i = 0;
             for (String cell : row.getCells()) {
                 float cellX = this.getX() + (cellWidth * headingCounter);
                 float cellY = this.getY() + (this.rowHeight * rowCounter);
@@ -51,9 +52,10 @@ public class Table extends UIComponent {
                         cell,
                         (int) cellX + 4,
                         (int) (cellY + (this.rowHeight / 2)) - CELL_FONT_SIZE / 2,
-                        CELL_FONT_SIZE, 4, row.getCellColor(cell)
+                        CELL_FONT_SIZE, 4, row.getCellColor(i)
                 );
                 headingCounter++;
+                i++;
             }
             rowCounter++;
         }
@@ -105,8 +107,8 @@ public class Table extends UIComponent {
             return cellColors;
         }
 
-        public Raylib.Color getCellColor(String cellValue) {
-            return cellColors.get(cells.indexOf(cellValue));
+        public Raylib.Color getCellColor(int cellIndex) {
+            return cellColors.get(cellIndex);
         }
     }
 }

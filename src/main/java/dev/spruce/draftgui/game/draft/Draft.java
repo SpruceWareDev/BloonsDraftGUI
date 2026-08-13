@@ -22,14 +22,16 @@ public class Draft implements ISaveable {
     private final List<Player> players;
     private List<PlayerDraft> playerDrafts;
     private final int numPlayers;
+    private boolean randomDraft;
 
-    public Draft(String date, String map, List<Player> players) {
+    public Draft(String date, String map, List<Player> players, boolean randomDraft) {
         this.date = date;
         this.map = map;
         this.players = players;
+        this.randomDraft = randomDraft;
         this.playerDrafts = new ArrayList<>();
         if (players.size() > 1) {
-            this.playerDrafts = generateDrafts(players);
+            regenerateDraft();
         }
         this.numPlayers = playerDrafts.size();
     }
@@ -48,27 +50,12 @@ public class Draft implements ISaveable {
     }
 
     public void regenerateDraft() {
-        this.playerDrafts = generateDrafts(this.players);
-    }
-
-    private List<PlayerDraft> generateDrafts(List<Player> players) {
-        List<PlayerDraft> drafts = new ArrayList<>();
-
-        int towersPerPlayer = Towers.TOWERS.size() / players.size();
-        List<Tower> usedTowers = new ArrayList<>();
-        for (Player player : players) {
-            List<Tower> playerTowers = new ArrayList<>();
-            while (playerTowers.size() < towersPerPlayer) {
-                Tower randomTower = Towers.TOWERS.get((int) (Math.random() * Towers.TOWERS.size()));
-                if (!usedTowers.contains(randomTower)) {
-                    playerTowers.add(randomTower);
-                    usedTowers.add(randomTower);
-                }
-            }
-            drafts.add(new PlayerDraft(player, playerTowers, 0));
+        if (randomDraft) {
+            this.playerDrafts = DraftGenerator.generateDraftsRandom(players);
+            System.out.println("Random draft generated for players: " + players);
+        } else {
+            this.playerDrafts = DraftGenerator.generateBalancedDrafts(players);
         }
-
-        return drafts;
     }
 
     public List<Tower> getLeftOverTowers() {

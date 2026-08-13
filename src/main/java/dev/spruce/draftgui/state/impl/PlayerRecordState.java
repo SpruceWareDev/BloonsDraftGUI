@@ -47,22 +47,28 @@ public class PlayerRecordState extends State {
         for (Player player : Application.getFileManager().getPlayers()) {
             float winPercentage = Statistics.get().getPlayerWinPercentage(player);
             Raylib.Color winPercentageColor = winPercentage >= 50 ? GREEN : (winPercentage >= 30.0 ? ORANGE : RED);
+            int highestRound = Statistics.get().getPlayerHighestRound(player);
+            int averageRound = Statistics.get().getAverageRound(player);
+            Raylib.Color averageRoundColor = averageRound >= 140 ? GREEN : (averageRound >= 100 ? ORANGE : RED);
             table.addRow(new Table.Row(
                     List.of(
                             player.getName(),
                             String.valueOf(player.getWins()),
                             String.format("%.2f", winPercentage),
-                            String.valueOf(Statistics.get().getAverageRound(player)),
-                            String.valueOf(Statistics.get().getPlayerHighestRound(player))
+                            String.valueOf(averageRound),
+                            String.valueOf(highestRound)
                     ),
-                    List.of(WHITE, WHITE, winPercentageColor, WHITE, WHITE)
+                    List.of(WHITE, WHITE, winPercentageColor, averageRoundColor, WHITE)
             ));
         }
         this.uiManager.addComponent(table);
 
+        /*
         List<Float> tomRounds = Application.getFileManager().getPlayersRounds(Application.getFileManager().getPlayerByName("Tom"));
-        LineGraph lineGraph = new LineGraph(6, 6 + (UIConstants.BUTTON_HEIGHT + 2) * 2 + table.getHeight() + 10, Raylib.GetRenderWidth() - 12, 200, tomRounds);
-        //this.uiManager.addComponent(lineGraph);
+        LineGraph lineGraph = new LineGraph(120, 20 + (UIConstants.BUTTON_HEIGHT + 2) * 2 + table.getHeight() + 10, Raylib.GetRenderWidth() - 12, 200, tomRounds);
+        this.uiManager.addComponent(lineGraph);
+
+         */
     }
 
     @Override
