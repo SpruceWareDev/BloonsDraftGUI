@@ -2,6 +2,7 @@ package dev.spruce.draftgui.state.impl;
 
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
+import dev.spruce.draftgui.FileManager;
 import dev.spruce.draftgui.game.draft.Draft;
 import dev.spruce.draftgui.game.draft.Player;
 import dev.spruce.draftgui.state.State;
@@ -53,7 +54,7 @@ public class PlayerRecordState extends State {
             table.addRow(new Table.Row(
                     List.of(
                             player.getName(),
-                            String.valueOf(player.getWins()),
+                            player.getWins() + "/" + Statistics.get().getPlayerGamesPlayed(player),
                             String.format("%.2f", winPercentage),
                             String.valueOf(averageRound),
                             String.valueOf(highestRound)
@@ -64,10 +65,10 @@ public class PlayerRecordState extends State {
         this.uiManager.addComponent(table);
 
         /*
-        List<Float> tomRounds = Application.getFileManager().getPlayersRounds(Application.getFileManager().getPlayerByName("Tom"));
-        LineGraph lineGraph = new LineGraph(120, 20 + (UIConstants.BUTTON_HEIGHT + 2) * 2 + table.getHeight() + 10, Raylib.GetRenderWidth() - 12, 200, tomRounds);
+        List<Float> rounds = Application.getFileManager().getPlayersRounds(Application.getFileManager().getPlayerByName("Noah"));
+        LineGraph lineGraph = new LineGraph(6, 20 + (UIConstants.BUTTON_HEIGHT + 2) * 2 + table.getHeight() + 10, Raylib.GetRenderWidth() - 12, 200, rounds);
         this.uiManager.addComponent(lineGraph);
-
+        
          */
     }
 

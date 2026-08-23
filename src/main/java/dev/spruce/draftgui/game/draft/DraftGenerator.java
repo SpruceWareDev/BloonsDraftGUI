@@ -4,6 +4,7 @@ import dev.spruce.draftgui.game.tower.Tower;
 import dev.spruce.draftgui.game.tower.Towers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -12,26 +13,23 @@ public class DraftGenerator {
     public static List<PlayerDraft> generateBalancedDrafts(List<Player> players) {
         List<PlayerDraft> drafts = new ArrayList<>();
         List<Map.Entry<Tower, Integer>> towerRanks = Towers.getSortedTowerRanks();
-        towerRanks.sort((a, b) -> b.getValue() - a.getValue()); // Sort towers by rank descending
 
+        // Sort towers by their money rank descending
+        towerRanks.sort((a, b) -> b.getKey().getRank().money() - a.getKey().getRank().money());
+
+        // Shuffle the towers to add randomization
+        Collections.shuffle(towerRanks);
+
+        // Initialize drafts for each player
         for (Player player : players) {
             drafts.add(new PlayerDraft(player, new ArrayList<>(), 0));
         }
 
+        // Distribute the towers evenly among players
+        int playerIndex = 0;
         for (Map.Entry<Tower, Integer> towerEntry : towerRanks) {
-            PlayerDraft leastRankedDraft = drafts.stream()
-                    .min((d1, d2) -> {
-                        int rank1 = d1.getTowers().stream().mapToInt(t -> Towers.getTowerRanks().get(t)).sum();
-                        int rank2 = d2.getTowers().stream().mapToInt(t -> Towers.getTowerRanks().get(t)).sum();
-                        rank1 += (int) (Math.random() * 5 - 2);
-                        rank2 += (int) (Math.random() * 5 - 2);
-                        return Integer.compare(rank1, rank2);
-                    })
-                    .orElse(null);
-
-            if (leastRankedDraft != null) {
-                leastRankedDraft.getTowers().add(towerEntry.getKey());
-            }
+            drafts.get(playerIndex).getTowers().add(towerEntry.getKey());
+            playerIndex = (playerIndex + 1) % players.size(); // Rotate to the next player
         }
 
         return drafts;
