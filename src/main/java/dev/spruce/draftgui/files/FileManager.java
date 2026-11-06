@@ -1,4 +1,4 @@
-package dev.spruce.draftgui;
+package dev.spruce.draftgui.files;
 
 import dev.spruce.draftgui.game.draft.Draft;
 import dev.spruce.draftgui.game.draft.Player;
@@ -30,6 +30,9 @@ public class FileManager {
         loadPlayerData();
     }
 
+    /**
+     * Checks if the necessary folders exist, and creates them if they don't.
+     */
     private void folderCheck() {
         File draftsDir = new File(DRAFTS_DIR);
         if (!draftsDir.exists()) {
@@ -42,6 +45,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Loads player data from the players directory.
+     * If the directory does not exist, an IllegalStateException is thrown.
+     * If a player file cannot be read or parsed, an error message is printed to the console.
+     */
     public void loadPlayerData() {
         File playersDir = new File(PLAYERS_DIR);
         if (!playersDir.exists()) {
@@ -66,6 +74,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Saves player data to the players directory.
+     * If the directory does not exist, an IllegalStateException is thrown.
+     * If a player file cannot be written, a RuntimeException is thrown.
+     */
     public void savePlayerData() {
         File playersDir = new File(PLAYERS_DIR);
         if (!playersDir.exists()) {
@@ -86,6 +99,15 @@ public class FileManager {
         }
     }
 
+    /**
+     * Determines the next draft index for a given date and map.
+     * It scans the drafts directory for existing draft files that match the specified date and map,
+     * extracts their indices, and returns the next available index.
+     *
+     * @param date The date of the draft in "YYYY-MM-DD" format.
+     * @param map  The name of the map for the draft.
+     * @return The next available draft index (starting from 1).
+     */
     public int getNextDraftIndex(String date, String map) {
         File draftsDir = new File(DRAFTS_DIR);
         File[] files = draftsDir.listFiles((dir, name) -> name.endsWith(DRAFT_FILE_EXTENSION));

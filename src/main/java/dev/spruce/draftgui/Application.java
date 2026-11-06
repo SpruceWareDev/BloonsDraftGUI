@@ -1,11 +1,10 @@
 package dev.spruce.draftgui;
 
 import com.raylib.Raylib;
+import dev.spruce.draftgui.files.FileManager;
 import dev.spruce.draftgui.state.StateManager;
 import dev.spruce.draftgui.state.impl.HomeState;
 import dev.spruce.draftgui.utils.Colours;
-
-import static com.raylib.Colors.RAYWHITE;
 
 public class Application {
 

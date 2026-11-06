@@ -3,9 +3,11 @@ package dev.spruce.draftgui.state.impl;
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
 import dev.spruce.draftgui.state.State;
+import dev.spruce.draftgui.ui.UIComponent;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.UIConstants;
+import dev.spruce.draftgui.ui.impl.DropdownMenu;
 
 public class HomeState extends State {
 
@@ -31,6 +33,8 @@ public class HomeState extends State {
                 Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 220f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new TowerInfoState());
         }));
+
+        this.uiManager.addComponent(new DropdownMenu(10, 10, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, "Test 1", "Test 2", "Test 3"));
     }
 
     @Override

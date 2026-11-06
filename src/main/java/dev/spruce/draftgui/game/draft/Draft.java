@@ -1,7 +1,7 @@
 package dev.spruce.draftgui.game.draft;
 
 import dev.spruce.draftgui.Application;
-import dev.spruce.draftgui.FileManager;
+import dev.spruce.draftgui.files.FileManager;
 import dev.spruce.draftgui.files.ISaveable;
 import dev.spruce.draftgui.game.tower.Tower;
 import dev.spruce.draftgui.game.tower.Towers;

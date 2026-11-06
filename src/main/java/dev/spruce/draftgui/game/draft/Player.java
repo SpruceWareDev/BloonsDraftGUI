@@ -1,6 +1,6 @@
 package dev.spruce.draftgui.game.draft;
 
-import dev.spruce.draftgui.FileManager;
+import dev.spruce.draftgui.files.FileManager;
 import dev.spruce.draftgui.files.ISaveable;
 
 public class Player implements ISaveable {
