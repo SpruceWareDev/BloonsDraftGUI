@@ -100,6 +100,50 @@ public class FileManager {
     }
 
     /**
+     * Creates an empty season with the specified name, start date, and end date.
+     * It creates a directory for the season, a season info file, a players file, and a drafts directory.
+     *
+     * @param name      The name of the season.
+     * @param startDate The start date of the season in "YYYY-MM-DD" format.
+     * @param endDate   The end date of the season in "YYYY-MM-DD" format.
+     * @return A new Season object representing the created season.
+     */
+    public Season createEmptySeason(String name, String startDate, String endDate) {
+        File seasonDir = new File(DRAFTS_DIR + File.separator + name);
+        if (!seasonDir.exists()) {
+            seasonDir.mkdirs();
+        }
+
+        File seasonFile = new File(seasonDir, "season.info");
+        try {
+            if (!seasonFile.exists()) {
+                seasonFile.createNewFile();
+            }
+            FileWriter fileWriter = new FileWriter(seasonFile);
+            fileWriter.write(name + DRAFT_DATA_SEPARATOR + startDate + DRAFT_DATA_SEPARATOR + endDate);
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        File playersFile = new File(seasonDir, "players" + PLAYER_FILE_EXTENSION);
+        try {
+            if (!playersFile.exists()) {
+                playersFile.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        File draftsDir = new File(seasonDir, "drafts");
+        if (!draftsDir.exists()) {
+            draftsDir.mkdirs();
+        }
+
+        return new Season(name, startDate, endDate, new ArrayList<>(), new ArrayList<>());
+    }
+
+    /**
      * Determines the next draft index for a given date and map.
      * It scans the drafts directory for existing draft files that match the specified date and map,
      * extracts their indices, and returns the next available index.
