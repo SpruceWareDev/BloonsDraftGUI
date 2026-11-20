@@ -1,11 +1,18 @@
 package dev.spruce.draftgui.files;
 
+import java.util.List;
+
 public class SeasonManager {
 
     private Season currentSeason;
+    private final List<Season> seasons;
 
-    public SeasonManager() {
-
+    public SeasonManager(List<Season> seasons) {
+        this.seasons = seasons;
+        if (!seasons.isEmpty()) {
+            // Set current season to the latest
+            this.currentSeason = seasons.get(seasons.size() - 1);
+        }
     }
 
     public Season getCurrentSeason() {
@@ -14,5 +21,19 @@ public class SeasonManager {
 
     public void setCurrentSeason(Season season) {
         this.currentSeason = season;
+    }
+
+    public boolean setSeasonByName(String name) {
+        for (Season season : this.seasons) {
+            if (season.getName().equals(name)) {
+                this.currentSeason = season;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<Season> getSeasons() {
+        return seasons;
     }
 }

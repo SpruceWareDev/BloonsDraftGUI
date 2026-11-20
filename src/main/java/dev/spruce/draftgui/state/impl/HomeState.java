@@ -2,12 +2,14 @@ package dev.spruce.draftgui.state.impl;
 
 import com.raylib.Raylib;
 import dev.spruce.draftgui.Application;
+import dev.spruce.draftgui.files.Season;
 import dev.spruce.draftgui.state.State;
-import dev.spruce.draftgui.ui.UIComponent;
+import dev.spruce.draftgui.ui.UIConstants;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
-import dev.spruce.draftgui.ui.UIConstants;
 import dev.spruce.draftgui.ui.impl.DropdownMenu;
+
+import java.util.List;
 
 public class HomeState extends State {
 
@@ -34,7 +36,11 @@ public class HomeState extends State {
             Application.getStateManager().setState(new TowerInfoState());
         }));
 
-        this.uiManager.addComponent(new DropdownMenu(10, 10, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, "Test 1", "Test 2", "Test 3"));
+        List<String> seasonNames = Application.getSeasonManager().getSeasons().stream().map(Season::getName).toList();
+        DropdownMenu seasonSelect = new DropdownMenu(10, 10, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, seasonNames);
+        seasonSelect.setOnSelect(() -> Application.getSeasonManager().setSeasonByName(seasonSelect.getSelectedOption()));
+        this.uiManager.addComponent(seasonSelect);
+
     }
 
     @Override

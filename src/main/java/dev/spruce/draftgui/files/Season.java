@@ -7,19 +7,14 @@ import java.util.List;
 
 public class Season {
 
-    private String name;
-    private String startDate;
-    private String endDate;
+    private final String name;
+    private final String startDate;
+    private final String endDate;
 
-    private List<Player> players;
-    private List<Draft> drafts;
-
-    public Season(String name, String startDate, String endDate, List<Player> players, List<Draft> drafts) {
+    public Season(String name, String startDate, String endDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.players = players;
-        this.drafts = drafts;
     }
 
     public String getName() {

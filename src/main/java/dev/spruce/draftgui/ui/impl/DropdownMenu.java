@@ -14,12 +14,13 @@ import java.util.List;
 public class DropdownMenu extends UIComponent {
 
     private String selectedOption;
-    private List<String> options;
+    private final List<String> options;
     private boolean open;
+    private Runnable onSelect;
 
-    public DropdownMenu(float x, float y, float width, float height, String... options) {
+    public DropdownMenu(float x, float y, float width, float height, List<String> options) {
         super(x, y, width, height);
-        this.options = Arrays.stream(options).toList();
+        this.options = options;
         this.selectedOption = this.options.get(0);
     }
 
@@ -60,9 +61,22 @@ public class DropdownMenu extends UIComponent {
                 if (Raylib.IsMouseButtonPressed(0) && optionRectangle.contains(Raylib.GetMouseX(), Raylib.GetMouseY())) {
                     this.selectedOption = option;
                     this.open = false; // Close the dropdown after selection
+
+                    // If onSelect runnable has been set, run it when the option is selected
+                    if (this.onSelect != null) {
+                        this.onSelect.run();
+                    }
                 }
                 i++;
             }
         }
+    }
+
+    public void setOnSelect(Runnable runnable) {
+        this.onSelect = runnable;
+    }
+
+    public String getSelectedOption() {
+        return selectedOption;
     }
 }

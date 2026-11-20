@@ -8,6 +8,7 @@ import dev.spruce.draftgui.state.State;
 import dev.spruce.draftgui.ui.UIManager;
 import dev.spruce.draftgui.ui.impl.Button;
 import dev.spruce.draftgui.ui.impl.Table;
+import dev.spruce.draftgui.utils.Statistics;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PreviousDraftsState extends State {
         );
 
         for (Draft draft : this.drafts) {
-            List<PlayerDraft> winners = Application.getFileManager().calculateWinners(draft);
+            List<PlayerDraft> winners = Statistics.get().calculateWinners(draft);
             StringBuilder winnerNames = new StringBuilder();
 
             for (PlayerDraft winner : winners) {

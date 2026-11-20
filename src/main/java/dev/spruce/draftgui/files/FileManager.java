@@ -3,6 +3,7 @@ package dev.spruce.draftgui.files;
 import dev.spruce.draftgui.game.draft.Draft;
 import dev.spruce.draftgui.game.draft.Player;
 import dev.spruce.draftgui.game.draft.PlayerDraft;
+import dev.spruce.draftgui.utils.Statistics;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -101,7 +102,7 @@ public class FileManager {
 
     /**
      * Creates an empty season with the specified name, start date, and end date.
-     * It creates a directory for the season, a season info file, a players file, and a drafts directory.
+     * It creates a directory for the season, a season info file and a drafts directory.
      *
      * @param name      The name of the season.
      * @param startDate The start date of the season in "YYYY-MM-DD" format.
@@ -126,21 +127,57 @@ public class FileManager {
             throw new RuntimeException(e);
         }
 
-        File playersFile = new File(seasonDir, "players" + PLAYER_FILE_EXTENSION);
-        try {
-            if (!playersFile.exists()) {
-                playersFile.createNewFile();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         File draftsDir = new File(seasonDir, "drafts");
         if (!draftsDir.exists()) {
             draftsDir.mkdirs();
         }
 
-        return new Season(name, startDate, endDate, new ArrayList<>(), new ArrayList<>());
+        return new Season(name, startDate, endDate);
+    }
+
+    /**
+     * Loads all seasons from the drafts directory.
+     * It reads the season info files and creates Season objects for each valid season.
+     *
+     * @return A list of Season objects representing the loaded seasons.
+     */
+    public List<Season> loadSeasons() {
+        List<Season> seasons = new ArrayList<>();
+        File draftsDir = new File(DRAFTS_DIR);
+        if (!draftsDir.exists()) {
+            throw new IllegalStateException("Drafts directory does not exist: " + DRAFTS_DIR);
+        }
+
+        File[] seasonDirs = draftsDir.listFiles(File::isDirectory);
+        if (seasonDirs == null) {
+            throw new IllegalStateException("Failed to list season directories in: " + DRAFTS_DIR);
+        }
+
+        for (File seasonDir : seasonDirs) {
+            File seasonFile = new File(seasonDir, "season.info");
+            if (!seasonFile.exists()) {
+                System.err.println("Season info file does not exist for season: " + seasonDir.getName());
+                continue;
+            }
+
+            try {
+                String data = Files.readString(seasonFile.toPath());
+                String[] parts = data.split(DRAFT_DATA_SEPARATOR);
+                if (parts.length != 3) {
+                    System.err.println("Invalid season info format for season: " + seasonDir.getName());
+                    continue;
+                }
+                String name = parts[0];
+                String startDate = parts[1];
+                String endDate = parts[2];
+                seasons.add(new Season(name, startDate, endDate));
+            } catch (IOException e) {
+                System.err.println("Failed to load season info from file: " + seasonFile.getName());
+                e.printStackTrace();
+            }
+        }
+
+        return seasons;
     }
 
     /**
@@ -243,7 +280,7 @@ public class FileManager {
     public void updatePlayerWins() {
         this.players.forEach(player -> player.setWins(0));
         for (Draft draft : loadDraftFiles()) {
-            List<PlayerDraft> winners = calculateWinners(draft);
+            List<PlayerDraft> winners = Statistics.get().calculateWinners(draft);
 
             for (PlayerDraft winner : winners) {
                 Player player = winner.getPlayer();
@@ -252,20 +289,7 @@ public class FileManager {
         }
     }
 
-    public List<PlayerDraft> calculateWinners(Draft draft) {
-        List<PlayerDraft> winners = new ArrayList<>();
-        int highestRound = 0;
-
-        for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
-            if (playerDraft.getRound() > highestRound) {
-                highestRound = playerDraft.getRound();
-                winners.clear();
-                winners.add(playerDraft);
-            } else if (playerDraft.getRound() == highestRound) {
-                winners.add(playerDraft);
-            }
-        }
-
-        return winners;
+    public String getSeasonDir(Season season) {
+        return DRAFTS_DIR + File.separator + season.getName();
     }
 }

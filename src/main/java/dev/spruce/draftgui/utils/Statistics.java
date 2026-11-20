@@ -5,6 +5,7 @@ import dev.spruce.draftgui.game.draft.Draft;
 import dev.spruce.draftgui.game.draft.Player;
 import dev.spruce.draftgui.game.draft.PlayerDraft;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Statistics {
@@ -109,6 +110,23 @@ public class Statistics {
         }
 
         return totalRounds / totalGames;
+    }
+
+    public List<PlayerDraft> calculateWinners(Draft draft) {
+        List<PlayerDraft> winners = new ArrayList<>();
+        int highestRound = 0;
+
+        for (PlayerDraft playerDraft : draft.getPlayerDrafts()) {
+            if (playerDraft.getRound() > highestRound) {
+                highestRound = playerDraft.getRound();
+                winners.clear();
+                winners.add(playerDraft);
+            } else if (playerDraft.getRound() == highestRound) {
+                winners.add(playerDraft);
+            }
+        }
+
+        return winners;
     }
 
     public static Statistics get() {
