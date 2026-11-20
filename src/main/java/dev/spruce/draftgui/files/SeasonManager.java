@@ -23,14 +23,13 @@ public class SeasonManager {
         this.currentSeason = season;
     }
 
-    public boolean setSeasonByName(String name) {
+    public void setSeasonByName(String name) {
         for (Season season : this.seasons) {
             if (season.getName().equals(name)) {
                 this.currentSeason = season;
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     public List<Season> getSeasons() {

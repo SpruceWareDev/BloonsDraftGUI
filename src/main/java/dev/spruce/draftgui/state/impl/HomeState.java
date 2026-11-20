@@ -40,7 +40,6 @@ public class HomeState extends State {
         DropdownMenu seasonSelect = new DropdownMenu(10, 10, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, seasonNames);
         seasonSelect.setOnSelect(() -> Application.getSeasonManager().setSeasonByName(seasonSelect.getSelectedOption()));
         this.uiManager.addComponent(seasonSelect);
-
     }
 
     @Override

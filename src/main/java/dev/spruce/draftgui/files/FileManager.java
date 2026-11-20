@@ -1,5 +1,6 @@
 package dev.spruce.draftgui.files;
 
+import dev.spruce.draftgui.Application;
 import dev.spruce.draftgui.game.draft.Draft;
 import dev.spruce.draftgui.game.draft.Player;
 import dev.spruce.draftgui.game.draft.PlayerDraft;
@@ -207,9 +208,9 @@ public class FileManager {
         return max+1;
     }
 
-    public void saveDraftFile(Draft draft) {
+    public void saveDraftFile(Season season, Draft draft) {
         String filename = draft.getSaveName();
-        File draftFile = new File(DRAFTS_DIR, filename);
+        File draftFile = new File(getSeasonDir(season) + File.separator + "drafts", filename);
 
         try {
             FileWriter fileWriter = new FileWriter(draftFile);
@@ -220,17 +221,21 @@ public class FileManager {
         }
     }
 
-    public List<Draft> loadDraftFiles() {
+    public void saveDraftFile(Draft draft) {
+        saveDraftFile(Application.getSeasonManager().getCurrentSeason(), draft);
+    }
+
+    public List<Draft> loadDraftFiles(Season season) {
         List<Draft> drafts = new ArrayList<>();
 
-        File draftsDir = new File(DRAFTS_DIR);
+        File draftsDir = new File(getSeasonDir(season) + File.separator + "drafts");
         if (!draftsDir.exists()) {
-            throw new IllegalStateException("Drafts directory does not exist: " + DRAFTS_DIR);
+            throw new IllegalStateException("Drafts directory does not exist: " + draftsDir.getAbsolutePath());
         }
 
         File[] draftFiles = draftsDir.listFiles((dir, name) -> name.endsWith(DRAFT_FILE_EXTENSION));
         if (draftFiles == null) {
-            throw new IllegalStateException("Failed to list draft files in directory: " + DRAFTS_DIR);
+            throw new IllegalStateException("Failed to list draft files in directory: " + draftsDir.getAbsolutePath());
         }
 
         for (File draftFile : draftFiles) {
@@ -246,6 +251,10 @@ public class FileManager {
         }
 
         return drafts;
+    }
+
+    public List<Draft> loadDraftFiles() {
+        return loadDraftFiles(Application.getSeasonManager().getCurrentSeason());
     }
 
     public List<Float> getPlayersRounds(Player player) {
