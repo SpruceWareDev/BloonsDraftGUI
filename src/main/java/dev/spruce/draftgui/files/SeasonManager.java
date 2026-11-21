@@ -1,5 +1,8 @@
 package dev.spruce.draftgui.files;
 
+import dev.spruce.draftgui.Application;
+import dev.spruce.draftgui.utils.DateUtils;
+
 import java.util.List;
 
 public class SeasonManager {
@@ -13,6 +16,11 @@ public class SeasonManager {
             // Set current season to the latest
             this.currentSeason = seasons.get(seasons.size() - 1);
         }
+    }
+
+    public void createNewSeason(String name) {
+        Season season = Application.getFileManager().createEmptySeason(name, DateUtils.getDate(), "Ongoing");
+        this.seasons.add(season);
     }
 
     public Season getCurrentSeason() {

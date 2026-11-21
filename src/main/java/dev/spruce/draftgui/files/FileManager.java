@@ -190,8 +190,8 @@ public class FileManager {
      * @param map  The name of the map for the draft.
      * @return The next available draft index (starting from 1).
      */
-    public int getNextDraftIndex(String date, String map) {
-        File draftsDir = new File(DRAFTS_DIR);
+    public int getNextDraftIndex(Season season, String date, String map) {
+        File draftsDir = new File(getSeasonDir(season) + File.separator + "drafts");
         File[] files = draftsDir.listFiles((dir, name) -> name.endsWith(DRAFT_FILE_EXTENSION));
         if (files == null) return 1;
 
@@ -206,6 +206,10 @@ public class FileManager {
             } catch (NumberFormatException ignore) {}
         }
         return max+1;
+    }
+
+    public int getNextDraftIndex(String date, String map) {
+        return getNextDraftIndex(Application.getSeasonManager().getCurrentSeason(), date, map);
     }
 
     public void saveDraftFile(Season season, Draft draft) {

@@ -19,7 +19,7 @@ public class HomeState extends State {
     public void initialize() {
         this.uiManager = new UIManager();
 
-        this.uiManager.addComponent(new Button("Start Draft",
+        this.uiManager.addComponent(new Button("New Draft",
                 Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 40f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new DraftSetupState());
         }));
@@ -27,9 +27,9 @@ public class HomeState extends State {
                 Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 100f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
             Application.getStateManager().setState(new PlayerRecordState());
         }));
-        this.uiManager.addComponent(new Button("Previous Drafts",
+        this.uiManager.addComponent(new Button("Seasons",
                 Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 160f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
-            Application.getStateManager().setState(new PreviousDraftsState());
+            Application.getStateManager().setState(new SeasonsState());
         }));
         this.uiManager.addComponent(new Button("Tower Info",
                 Raylib.GetRenderWidth() / 2f - UIConstants.BUTTON_WIDTH / 2f, 220f, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, () -> {
@@ -39,6 +39,7 @@ public class HomeState extends State {
         List<String> seasonNames = Application.getSeasonManager().getSeasons().stream().map(Season::getName).toList();
         DropdownMenu seasonSelect = new DropdownMenu(10, 10, UIConstants.BUTTON_WIDTH, UIConstants.BUTTON_HEIGHT, seasonNames);
         seasonSelect.setOnSelect(() -> Application.getSeasonManager().setSeasonByName(seasonSelect.getSelectedOption()));
+        seasonSelect.setSelectedOption(Application.getSeasonManager().getCurrentSeason().getName());
         this.uiManager.addComponent(seasonSelect);
     }
 

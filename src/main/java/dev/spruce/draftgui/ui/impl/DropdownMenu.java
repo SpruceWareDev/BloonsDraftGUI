@@ -79,4 +79,10 @@ public class DropdownMenu extends UIComponent {
     public String getSelectedOption() {
         return selectedOption;
     }
+
+    public void setSelectedOption(String option) {
+        if (this.options.contains(option)) {
+            this.selectedOption = option;
+        }
+    }
 }
