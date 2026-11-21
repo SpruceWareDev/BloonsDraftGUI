@@ -5,8 +5,12 @@ import com.raylib.Raylib;
 
 public class RenderUtils {
     
-    public static double larp(double start, double end, double t) {
+    public static double animate(double start, double end, double t) {
         return start + (end - start) * t;
+    }
+
+    public static float animate(float start, float end, double t) {
+        return (float) (start + (end - start) * t);
     }
 
     public static void DrawTextAShadow(String text, int posX, int posY, int fontSize, Raylib.Color tint) {

@@ -24,8 +24,8 @@ public class TowerCard extends UIComponent {
 
     @Override
     public void render() {
-        setX((float) RenderUtils.larp(getX(), targetX, 0.1f));
-        setY((float) RenderUtils.larp(getY(), targetY, 0.1f));
+        setX((float) RenderUtils.animate(getX(), targetX, 0.1f));
+        setY((float) RenderUtils.animate(getY(), targetY, 0.1f));
 
 
         Raylib.Rectangle rect = new Rectangle(getX(), getY(), getWidth(), getHeight()).toRaylibRectangle();
